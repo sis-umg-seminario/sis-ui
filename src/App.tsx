@@ -2,7 +2,6 @@ import { useRoutes, BrowserRouter } from 'react-router-dom';
 import Home from "./pages/Home";
 import About from './pages/About';
 import NotFound from './pages/NotFound';
-import Navbar from './components/Navbar';
 
 const AppRoutes = () => {
   
@@ -19,7 +18,6 @@ export default function App() {
   return (
     
       <BrowserRouter>
-        <Navbar />
         <AppRoutes />
       </BrowserRouter>
     
