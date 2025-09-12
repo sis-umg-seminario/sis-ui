@@ -4,7 +4,7 @@ import type { EligibleCourses, TermType } from "../../types/courseAssignment";
 
 export function useFindEligibleCourses() {
   const [eligibleCourses, setEligibleCourses] = useState<EligibleCourses>();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const findEligibleCourses = async (
@@ -13,6 +13,7 @@ export function useFindEligibleCourses() {
     startMonth: number,
     paymentCode: number
   ) => {
+    setLoading(true);
     try {
       const data = await courseAssignmentService.getAll(
         studentId,
