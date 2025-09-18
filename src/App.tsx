@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import About from './pages/About';
 import NotFound from './pages/NotFound';
 import CourseAssignment from './pages/CourseAssignment';
+import EnrollmentPage from './pages/Enrollment';
 
 const AppRoutes = () => {
   
@@ -11,6 +12,7 @@ const AppRoutes = () => {
     { path: '/home', element: <Home />},
     { path: '/about', element: <About />},
     { path: '/course-assignment', element: <CourseAssignment />},
+    { path: '/enrollment', element: <EnrollmentPage />},
     { path: '*', element: <NotFound />},
   ])
   return routes;
