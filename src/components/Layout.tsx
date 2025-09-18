@@ -9,7 +9,7 @@ export default function Layout({children}: {children: React.ReactNode}) {
                 <Link to="/"><img className="w-32 h-32" src={logo} alt="University logo"/></Link>
                 <NavMenu />
             </aside>
-            <main className="p-4">
+            <main className="p-4 w-full">
                 {children}
             </main>
         </div>
