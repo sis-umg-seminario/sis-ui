@@ -4,6 +4,7 @@ import About from './pages/About';
 import NotFound from './pages/NotFound';
 import CourseAssignment from './pages/CourseAssignment';
 import EnrollmentPage from './pages/Enrollment';
+import ProgramCourses from './pages/ProgramCourses';
 
 const AppRoutes = () => {
   
@@ -13,6 +14,7 @@ const AppRoutes = () => {
     { path: '/about', element: <About />},
     { path: '/course-assignment', element: <CourseAssignment />},
     { path: '/enrollment', element: <EnrollmentPage />},
+    { path: '/program-courses', element: <ProgramCourses />},
     { path: '*', element: <NotFound />},
   ])
   return routes;
