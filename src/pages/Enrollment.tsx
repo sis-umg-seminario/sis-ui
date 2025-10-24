@@ -23,7 +23,7 @@ export default function EnrollmentPage() {
 
         pay({
             studentId,
-            paymentTypeId: 10, // ID de Inscripción
+            paymentTypeId: 1, // ID de Inscripción
             paymentDetails: {
                 ...cardDetails,
                 amount: enrollmentFee.enrollmentFee,
