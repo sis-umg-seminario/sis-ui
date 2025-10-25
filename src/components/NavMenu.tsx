@@ -1,7 +1,6 @@
-// src/components/NavMenu.tsx
 import { NavLink } from "react-router-dom";
 import { BookOpen, Calendar, FileText, Pencil, ClipboardList, Wallet } from "lucide-react";
-import type { LucideIcon } from "lucide-react"; // tipo para los iconos
+import type { LucideIcon } from "lucide-react";
 import React from "react";
 
 type Props = {
@@ -12,7 +11,7 @@ type Props = {
 type NavItem = {
   to: string;
   label: string;
-  icon: LucideIcon; // evita usar `any`
+  icon: LucideIcon; 
 };
 
 export default function NavMenu({ vertical = false, onNavigate }: Props) {
@@ -23,7 +22,7 @@ export default function NavMenu({ vertical = false, onNavigate }: Props) {
     { to: "/program-courses", label: "Pensum", icon: BookOpen },
     { to: "/grades", label: "Notas", icon: FileText },
     { to: "/course-assignment", label: "Asignación", icon: Pencil },
-    { to: "/billing", label: "Estado de Cuenta", icon: Wallet }, // aquí Wallet en lugar de Bank
+    { to: "/balance", label: "Estado de Cuenta", icon: Wallet }, 
     { to: "/library", label: "Biblioteca", icon: ClipboardList },
   ];
 
