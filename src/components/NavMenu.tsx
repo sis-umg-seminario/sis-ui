@@ -10,6 +10,7 @@ export default function NavMenu(){
                 <li className=" py-3 px-1 hover:text-blue-950 hover:bg-blue-100 transition-colors duration-300 ease-in-out"><Link to="/enrollment">Inscripciones</Link></li>
                 <li className=" py-3 px-1 hover:text-blue-950 hover:bg-blue-100 transition-colors duration-300 ease-in-out"><Link to="/course-assignment">Asignaciones</Link></li>
                 <li className=" py-3 px-1 hover:text-blue-950 hover:bg-blue-100 transition-colors duration-300 ease-in-out"><Link to="/program-courses">Pensum</Link></li>
+                <li className=" py-3 px-1 hover:text-blue-950 hover:bg-blue-100 transition-colors duration-300 ease-in-out"><Link to="/balance">Estado de Cuenta</Link></li>
             </ul>
         </nav>
     )
