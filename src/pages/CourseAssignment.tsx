@@ -5,63 +5,98 @@ import { useFindEligibleCourses } from "@/hooks/courseAssignment/useFindEligible
 import { useRegister } from "@/hooks/courseAssignment/useRegister";
 import type { OfferingCourse, TermType } from "@/types/courseAssignment";
 import { useState } from "react";
+import Modal from "@/components/Modal";
+import Loader from "@/components/Loader";
+import ErrorModal from "@/components/ErrorModal";
 
-export default function CourseAssignment(){
-    const { eligibleCourses, loading: loadingEligibleCourses, error: errorEligibleCourses, findEligibleCourses } = useFindEligibleCourses();
-    const { registerResult, loading: loadingRegister, error: errorRegister, enroll } = useRegister();
-    const [studentId, setStudentId] = useState<number | null>(null);
-    const [paymentCode, setPaymentCode] = useState<number | null>(null);
+export default function CourseAssignment() {
+  const {
+    eligibleCourses,
+    loading: loadingEligibleCourses,
+    error: errorEligibleCourses,
+    findEligibleCourses,
+    resetEligibleCoursesError
+  } = useFindEligibleCourses();
+  const {
+    registerResult,
+    loading: loadingRegister,
+    error: errorRegister,
+    enroll,
+    resetRegisterError
+  } = useRegister();
 
-    const handleFindEligibleCourses = (
-        {studentId, termType, startMonth, paymentCode}: {
-            studentId: number,
-            termType: TermType,
-            startMonth: number,
-            paymentCode: number
-        }) => {
-        findEligibleCourses(studentId, termType, startMonth, paymentCode);
-        setStudentId(studentId);
-        setPaymentCode(paymentCode);
-    }
+  const [studentId, setStudentId] = useState<number | null>(null);
+  const [paymentCode, setPaymentCode] = useState<number | null>(null);
 
-    const handleRegister = (offeringCourses: OfferingCourse[]) => {
-        if(!eligibleCourses || !studentId || !paymentCode) return;
-        enroll({
-            termId: eligibleCourses.academicTermId,
-            studentId: studentId,
-            programId: eligibleCourses.programId,
-            paymentCode: paymentCode,
-            offeringCourses: offeringCourses
-        })
-    }
+  const handleFindEligibleCourses = ({
+    studentId,
+    termType,
+    startMonth,
+    paymentCode,
+  }: {
+    studentId: number;
+    termType: TermType;
+    startMonth: number;
+    paymentCode: number;
+  }) => {
+    findEligibleCourses(studentId, termType, startMonth, paymentCode);
+    setStudentId(studentId);
+    setPaymentCode(paymentCode);
+  };
 
-    if(loadingEligibleCourses) {
-        return <Layout><p>Cargando cursos elegibles...</p></Layout>
-    }
-    if(loadingRegister) {
-        return <Layout><p>Realizando inscripción...</p></Layout>
-    }
-    if(errorEligibleCourses) {
-        return <Layout><p className="text-red-500">Error cargando cursos elegibles: {errorEligibleCourses}</p></Layout>
-    }
-    if(errorRegister) {
-        return <Layout><p className="text-red-500">Error realizando inscripción: {errorRegister}</p></Layout>
-    }
+  const handleRegister = (offeringCourses: OfferingCourse[]) => {
+    if (!eligibleCourses || !studentId || !paymentCode) return;
+    enroll({
+      termId: eligibleCourses.academicTermId,
+      studentId: studentId,
+      programId: eligibleCourses.programId,
+      paymentCode: paymentCode,
+      offeringCourses: offeringCourses,
+    });
+  };
 
-    if(registerResult?.status === "Ok") {
-        return <Layout><p className="text-green-500">Inscripción realizada con éxito: {registerResult.message}</p></Layout>
-    }
+  const isLoading = loadingEligibleCourses || loadingRegister;
+  const error = errorEligibleCourses || errorRegister;
+
+  if (registerResult?.status === "Ok") {
     return (
-        <Layout>
-                <div className="w-full h-full grid place-items-center">
-                    <div className="w-full max-w-3xl">
-                        {eligibleCourses ?
-                        <AssignEligibleCourses eligibleCourses={eligibleCourses} onConfirm={handleRegister}/>
-                        :
-                        <FormCourseAssignment onSubmit={handleFindEligibleCourses} />
-                        }
-                    </div>
-                </div>
-        </Layout>
-    )
-};
+      <Layout>
+        <div className="w-full h-full flex justify-center items-center">
+          <div className="text-center p-8 border-2 border-green-500 rounded-lg shadow-md bg-white max-w-md w-full">
+            <h2 className="text-2xl font-bold text-green-600 mb-3">
+              ¡Asignación Exitosa!
+            </h2>
+            <p className="text-gray-700">{registerResult.message}</p>
+          </div>
+        </div>
+      </Layout>
+    );
+  }
+
+  return (
+    <Layout>
+      <div className="w-full min-h-[80vh] flex justify-center items-center">
+        <div className="w-full max-w-4xl bg-white shadow-lg rounded-xl p-8 border border-gray-100">
+          {eligibleCourses ? (
+            <AssignEligibleCourses
+              eligibleCourses={eligibleCourses}
+              onConfirm={handleRegister}
+            />
+          ) : (
+            <FormCourseAssignment onSubmit={handleFindEligibleCourses} />
+          )}
+        </div>
+      </div>
+
+      <Modal open={isLoading} title="Procesando">
+        <Loader message="Por favor espera..." />
+      </Modal>
+
+        <ErrorModal
+          open={!!error && !isLoading && !registerResult}
+          message={error ?? ""}
+          onClose={() => {resetEligibleCoursesError(); resetRegisterError();}}
+        />
+    </Layout>
+  );
+}

@@ -21,5 +21,9 @@ export function useProcessPayment() {
     }
   };
 
-  return { paymentResult, loading, error, pay };
+  const resetPaymentError = () => {
+    setError(null);
+  };
+
+  return { paymentResult, loading, error, pay, resetPaymentError };
 }

@@ -23,13 +23,15 @@ export function useFindEligibleCourses() {
       );
       setEligibleCourses(data);
     } catch (err) {
-      setError("Failed to fetch eligible courses: " + err);
+      setError("Ocurrió un error al obtener los cursos elegibles: ");
     } finally {
         setLoading(false);
       }
   };
 
+  const resetEligibleCoursesError = () => {
+    setError(null);
+  };
 
-
-  return { eligibleCourses, loading, error, findEligibleCourses };
+  return { eligibleCourses, loading, error, findEligibleCourses, resetEligibleCoursesError };
 }
