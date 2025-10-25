@@ -28,7 +28,6 @@ export default function ProgramCourses() {
       </Layout>
     );
 
-  // Agrupar cursos por ciclo (academicTermTitle)
   const groupedCourses = programCourses.courses.reduce((acc, course) => {
     if (!acc[course.academicTermTitle]) acc[course.academicTermTitle] = [];
     acc[course.academicTermTitle].push(course);
@@ -46,7 +45,6 @@ export default function ProgramCourses() {
           Créditos Aprobados: <span className="font-medium">{programCourses.creditsEarned}</span>
         </p>
 
-        {/* Listado de ciclos */}
         {Object.entries(groupedCourses).map(([termTitle, courses]) => (
           <div key={termTitle} className="mb-4 border rounded-xl shadow-sm">
             <button

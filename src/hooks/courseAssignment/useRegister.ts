@@ -13,13 +13,15 @@ export function useRegister() {
       const data = await courseAssignmentService.register(registerRequest);
       setRegisterResult(data);
     } catch (err) {
-      setError("Failed to register courses: " + err);
+      setError("Hubo un error al asignar los cursos ");
     } finally {
         setLoading(false);
       }
   };
 
+  const resetRegisterError = () => {
+    setError(null);
+  };
 
-
-  return { registerResult, loading, error, enroll };
+  return { registerResult, loading, error, enroll, resetRegisterError };
 }

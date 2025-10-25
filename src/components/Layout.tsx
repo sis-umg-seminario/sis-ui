@@ -44,7 +44,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <div className="mt-auto text-xs opacity-75">© {new Date().getFullYear()}</div>
         </aside>
 
-        {/* Mobile drawer */}
         <div
           className={`fixed inset-y-0 left-0 z-40 w-64 bg-blue-950 p-6 text-white transform transition-transform sm:hidden
             ${open ? "translate-x-0" : "-translate-x-full"}`}
@@ -59,7 +58,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <NavMenu vertical onNavigate={() => setOpen(false)} />
         </div>
 
-        {/* Main content */}
         <main className="flex-1 p-6 sm:ml-0">
           {children}
         </main>
