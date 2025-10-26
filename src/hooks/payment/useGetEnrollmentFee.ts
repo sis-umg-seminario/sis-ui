@@ -10,15 +10,14 @@ export function useGetEnrollmentFee() {
   const findEnrollmentFee = async (studentId: string) => {
     setLoading(true);
     setError(null);
-    setEnrollmentFee(null); 
+    setEnrollmentFee(null);
     try {
-
       const data = await paymentService.getEnrollmentFee(studentId, 10);
       setEnrollmentFee(data);
     } catch (err) {
       setError("Error: No se pudo consultar el monto a pagar. Verifique el carné.");
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
   };
 
