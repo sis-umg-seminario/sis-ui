@@ -54,5 +54,9 @@ export function useGetCourseSchedule() {
   //   }
   };
 
-  return { schedule, loading, error, getSchedule };
+  const resetError = () => {
+    setError(null);
+  }
+
+  return { schedule, loading, error, getSchedule, resetError };
 }

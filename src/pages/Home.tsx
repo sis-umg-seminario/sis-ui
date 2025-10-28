@@ -12,11 +12,11 @@ export default function Home() {
   };
 
   const features = [
-    { id: "schedules", label: "Horarios", icon: Calendar, to: "/schedules" },
+    { id: "schedules", label: "Horarios", icon: Calendar, to: "/course-schedule" },
     { id: "pensum", label: "Pensum", icon: BookOpen, to: "/program-courses" },
     { id: "grades", label: "Notas", icon: FileText, to: "/grades" },
     { id: "course-assignment", label: "Asignación", icon: Pencil, to: "/course-assignment" },
-    { id: "billing", label: "Estado de Cuenta", icon: Wallet, to: "/billing" },
+    { id: "balance", label: "Estado de Cuenta", icon: Wallet, to: "/balance" },
     { id: "library", label: "Biblioteca", icon: Archive, to: "/library" },
   ];
 

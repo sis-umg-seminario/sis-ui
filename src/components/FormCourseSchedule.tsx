@@ -5,13 +5,12 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "./ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import { type TermType } from "@/types/courseAssignment";
-
+import { CalendarDays } from "lucide-react";
 
 const formSchema = z.object({
-  studentId: z.coerce.number().int({ message: "El carné debe ser un número." }),
+  studentId: z.number().int({ message: "El carné debe ser un número válido." }),
   termType: z.enum(["SEMESTER", "TRIMESTER"]),
-  startMonth: z.coerce.number(),
+  startMonth: z.number(),
 });
 
 interface FormCourseScheduleProps {
@@ -24,29 +23,112 @@ export default function FormCourseSchedule({ isLoading, onSubmit }: FormCourseSc
     resolver: zodResolver(formSchema),
     defaultValues: {
       termType: "SEMESTER",
-      startMonth: 1, 
+      startMonth: 1,
     },
   });
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="border-2 border-black">
-        <div className="grid place-items-center h-20 border-b-2 border-black">
-          <h2 className="font-bold text-2xl text-center">Consulta de Horario</h2>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden"
+      >
+        <div className="flex items-center justify-center gap-2 h-16 bg-blue-950 text-white">
+          <CalendarDays size={24} />
+          <h2 className="font-bold text-xl">Consulta de Horario</h2>
         </div>
-        <div className="flex flex-col justify-evenly p-6 gap-8">
-          <FormField control={form.control} name="studentId" render={({ field }) => (
-            <FormItem className="w-64"><FormLabel>No. de Carné</FormLabel><FormControl><Input type="number" {...field} className="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"/></FormControl><FormMessage /></FormItem>
-          )} />
-          <div className="w-full flex gap-8">
-            <FormField control={form.control} name="termType" render={({ field }) => (
-              <FormItem className="w-64"><FormLabel>Semestre/Trimestre</FormLabel><Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger><SelectValue /></SelectTrigger></FormControl><SelectContent><SelectItem value="SEMESTER">Semestre</SelectItem><SelectItem value="TRIMESTER">Trimestre</SelectItem></SelectContent></Select><FormMessage /></FormItem>
-            )} />
-            <FormField control={form.control} name="startMonth" render={({ field }) => (
-              <FormItem className="w-64"><FormLabel>Mes</FormLabel><Select onValueChange={field.onChange} defaultValue={String(field.value)}><FormControl><SelectTrigger><SelectValue /></SelectTrigger></FormControl><SelectContent><SelectItem value="1">Enero</SelectItem><SelectItem value="7">Julio</SelectItem></SelectContent></Select><FormMessage /></FormItem>
-            )} />
+
+        <div className="flex flex-col gap-8 p-6">
+          <FormField
+            control={form.control}
+            name="studentId"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>No. de Carné</FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                    required
+                    placeholder="Ingrese su número de carné"
+                    value={field.value}
+                    onChange={(e) => field.onChange(Number(e.target.value))}
+                    className="[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <div className="flex flex-col sm:flex-row gap-8 justify-start">
+            <FormField
+              control={form.control}
+              name="termType"
+              render={({ field }) => (
+                <FormItem className="w-full sm:w-1/2">
+                  <FormLabel>Semestre / Trimestre</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Seleccione..." />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="SEMESTER">Semestre</SelectItem>
+                      <SelectItem value="TRIMESTER">Trimestre</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+            control={form.control}
+            name="startMonth"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Mes de Inicio</FormLabel>
+                <FormControl>
+                  <Select
+                    value={String(field.value)}
+                    onValueChange={(val) => field.onChange(Number(val))}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Seleccione..." />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {[
+                        "Enero",
+                        "Febrero",
+                        "Marzo",
+                        "Abril",
+                        "Mayo",
+                        "Junio",
+                        "Julio",
+                        "Agosto",
+                        "Septiembre",
+                        "Octubre",
+                        "Noviembre",
+                        "Diciembre",
+                      ].map((month, i) => (
+                        <SelectItem key={i + 1} value={String(i + 1)}>
+                          {month}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           </div>
-          <Button type="submit" className="w-48 bg-blue-900 hover:cursor-pointer hover:bg-blue-700 self-center" disabled={isLoading}>
+
+          <Button
+            type="submit"
+            className="self-center w-48 bg-blue-900 hover:bg-blue-700"
+            disabled={isLoading}
+          >
             {isLoading ? "Consultando..." : "Consultar Horario"}
           </Button>
         </div>
