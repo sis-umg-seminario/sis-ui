@@ -21,6 +21,7 @@ export default function NavMenu({ vertical = false, onNavigate }: Props) {
     { to: "/enrollment", label: "Inscripciones", icon: Calendar },
     { to: "/program-courses", label: "Pensum", icon: BookOpen },
     { to: "/grades", label: "Notas", icon: FileText },
+    { to: "/course-schedule", label: "Consulta de Horario", icon: Calendar },
     { to: "/course-assignment", label: "Asignación", icon: Pencil },
     { to: "/balance", label: "Estado de Cuenta", icon: Wallet }, 
     { to: "/library", label: "Biblioteca", icon: ClipboardList },
