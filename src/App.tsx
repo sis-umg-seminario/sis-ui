@@ -7,6 +7,8 @@ import EnrollmentPage from './pages/Enrollment';
 import CourseSchedulePage from './pages/CourseSchedulePage';
 import ProgramCourses from './pages/ProgramCourses';
 import Balance from './pages/Balance';
+import AssignedCourses from './pages/professor/AssignedCourses';
+import AssignedCourse from './pages/professor/AssignedCourse';
 
 const AppRoutes = () => {
   
@@ -19,6 +21,9 @@ const AppRoutes = () => {
     { path: '/course-schedule', element: <CourseSchedulePage />},
     { path: '/program-courses', element: <ProgramCourses />},
     { path: '/balance', element: <Balance />},
+    //Professor
+    { path: '/assigned-courses', element: <AssignedCourses />},
+    { path: '/assigned-courses/:id', element: <AssignedCourse />},
     { path: '*', element: <NotFound />},
   ])
   return routes;
