@@ -1,6 +1,6 @@
-import { apiClient } from "./apiClient";
-import type { TermType } from "@/types/courseAssignment"; 
-import type { CourseScheduleResponse } from "@/types/courseSchedule";
+import { apiClient } from "../apiClient";
+import type { TermType } from "@/types/academic/courseAssignment"; 
+import type { CourseScheduleResponse } from "@/types/students/courseSchedule";
 
 export const studentService = {
   

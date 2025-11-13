@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { studentService } from "@/services/studentService";
-import type { CourseScheduleResponse } from "@/types/courseSchedule";
-import type { TermType } from "@/types/courseAssignment";
+import { studentService } from "@/services/students/studentService";
+import type { CourseScheduleResponse } from "@/types/students/courseSchedule";
+import type { TermType } from "@/types/academic/courseAssignment";
 
 export function useGetCourseSchedule() {
   const [schedule, setSchedule] = useState<CourseScheduleResponse | null>(null);

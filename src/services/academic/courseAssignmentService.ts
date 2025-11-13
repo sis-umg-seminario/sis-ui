@@ -1,5 +1,5 @@
-import { apiClient } from "./apiClient";
-import { type RegisterResponse, type EligibleCourses, type RegisterRequest, type TermType } from "@/types/courseAssignment";
+import { apiClient } from "../apiClient";
+import { type RegisterResponse, type EligibleCourses, type RegisterRequest, type TermType } from "@/types/academic/courseAssignment";
 
 export const courseAssignmentService = {
   getAll: (

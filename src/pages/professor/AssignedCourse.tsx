@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import Modal from "@/components/Modal";
 import ErrorModal from "@/components/ErrorModal";
 import Loader from "@/components/Loader";
-import type { StudentGrades } from "@/types/studentGrades";
+import type { StudentGrades } from "@/types/professor/studentGrades";
 import { useState, useEffect } from "react";
 
 interface CourseGradesProps {

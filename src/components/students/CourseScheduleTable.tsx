@@ -1,5 +1,5 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { type CourseScheduleResponse } from "@/types/courseSchedule";
+import { type CourseScheduleResponse } from "@/types/students/courseSchedule";
 import { CalendarDays } from "lucide-react";
 
 interface CourseScheduleTableProps {

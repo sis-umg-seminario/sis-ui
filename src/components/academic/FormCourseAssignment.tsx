@@ -1,29 +1,47 @@
 import { useForm } from "react-hook-form";
-import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "./ui/form";
-import { Input } from "./ui/input";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormControl,
+  FormMessage,
+} from "../ui/form";
+import { Input } from "../ui/input";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "./ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import { CalendarDays } from "lucide-react";
+import { Button } from "../ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 const formSchema = z.object({
-  studentId: z.number().int({ message: "El carné debe ser un número válido." }),
+  studentId: z
+    .number()
+    .int()
+    .positive({ message: "Carné inválido" }),
   termType: z.enum(["SEMESTER", "TRIMESTER"]),
   startMonth: z.number(),
+  paymentCode: z
+    .number()
+    .int()
+    .positive({ message: "Documento de pago no válido" }),
 });
 
-interface FormCourseScheduleProps {
-  isLoading: boolean;
+export default function FormCourseAssignment({
+  onSubmit,
+}: {
   onSubmit: (values: z.infer<typeof formSchema>) => void;
-}
-
-export default function FormCourseSchedule({ isLoading, onSubmit }: FormCourseScheduleProps) {
+}) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       termType: "SEMESTER",
-      startMonth: 1,
+      startMonth: new Date().getMonth() + 1,
     },
   });
 
@@ -31,14 +49,13 @@ export default function FormCourseSchedule({ isLoading, onSubmit }: FormCourseSc
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden"
+        className="flex flex-col gap-8"
       >
-        <div className="flex items-center justify-center gap-2 h-16 bg-blue-950 text-white">
-          <CalendarDays size={24} />
-          <h2 className="font-bold text-xl">Consulta de Horario</h2>
-        </div>
+        <h2 className="text-2xl font-bold text-center text-blue-900 mb-2">
+          Asignación de Cursos
+        </h2>
 
-        <div className="flex flex-col gap-8 p-6">
+        <div className="grid gap-6 sm:grid-cols-2">
           <FormField
             control={form.control}
             name="studentId"
@@ -48,11 +65,10 @@ export default function FormCourseSchedule({ isLoading, onSubmit }: FormCourseSc
                 <FormControl>
                   <Input
                     type="number"
+                    className="border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                     required
-                    placeholder="Ingrese su número de carné"
                     value={field.value}
                     onChange={(e) => field.onChange(Number(e.target.value))}
-                    className="[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
                   />
                 </FormControl>
                 <FormMessage />
@@ -60,29 +76,55 @@ export default function FormCourseSchedule({ isLoading, onSubmit }: FormCourseSc
             )}
           />
 
-          <div className="flex flex-col sm:flex-row gap-8 justify-start">
-            <FormField
-              control={form.control}
-              name="termType"
-              render={({ field }) => (
-                <FormItem className="w-full sm:w-1/2">
-                  <FormLabel>Semestre / Trimestre</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Seleccione..." />
-                      </SelectTrigger>
-                    </FormControl>
+          <FormField
+            control={form.control}
+            name="paymentCode"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Documento de Pago</FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                    className="border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                    required
+                    value={field.value}
+                    onChange={(e) => field.onChange(Number(e.target.value))}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="grid gap-6 sm:grid-cols-2">
+          <FormField
+            control={form.control}
+            name="termType"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Periodo</FormLabel>
+                <FormControl>
+                  <Select
+                    onValueChange={field.onChange}
+                    value={field.value}
+                    defaultValue={field.value}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Seleccionar" />
+                    </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="SEMESTER">Semestre</SelectItem>
                       <SelectItem value="TRIMESTER">Trimestre</SelectItem>
                     </SelectContent>
                   </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
             control={form.control}
             name="startMonth"
             render={({ field }) => (
@@ -94,7 +136,7 @@ export default function FormCourseSchedule({ isLoading, onSubmit }: FormCourseSc
                     onValueChange={(val) => field.onChange(Number(val))}
                   >
                     <SelectTrigger>
-                      <SelectValue placeholder="Seleccione..." />
+                      <SelectValue placeholder="Seleccionar mes" />
                     </SelectTrigger>
                     <SelectContent>
                       {[
@@ -122,14 +164,14 @@ export default function FormCourseSchedule({ isLoading, onSubmit }: FormCourseSc
               </FormItem>
             )}
           />
-          </div>
+        </div>
 
+        <div className="flex justify-center">
           <Button
             type="submit"
-            className="self-center w-48 bg-blue-900 hover:bg-blue-700"
-            disabled={isLoading}
+            className="w-48 bg-blue-900 hover:bg-blue-700 text-white"
           >
-            {isLoading ? "Consultando..." : "Consultar Horario"}
+            Buscar Cursos
           </Button>
         </div>
       </form>

@@ -1,7 +1,7 @@
-import { apiClient } from "./apiClient";
-import type { AssignedCourses } from "../types/assignedCourses";
-import type { StudentGrades } from "../types/studentGrades";
-import type { CourseStudents } from "../types/courseStudents";
+import { apiClient } from "../apiClient";
+import type { AssignedCourses } from "../../types/professor/assignedCourses";
+import type { StudentGrades } from "../../types/professor/studentGrades";
+import type { CourseStudents } from "../../types/professor/courseStudents";
 
 
 export const professorService = {

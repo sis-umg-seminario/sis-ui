@@ -1,5 +1,5 @@
 import Layout from '@/components/Layout';
-import { useFetchProgramCourses } from '../hooks/academic/useFetchProgramCourses';
+import { useFetchProgramCourses } from '../../hooks/academic/useFetchProgramCourses';
 import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 

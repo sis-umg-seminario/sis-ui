@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { professorService } from "@/services/professorService";
-import type { AssignedCourses } from "@/types/assignedCourses";
+import { professorService } from "@/services/professor/professorService";
+import type { AssignedCourses } from "@/types/professor/assignedCourses";
 
 export function useFetchAssignedCourses(professorId: number) {
   const [assignedCourses, setAssignedCourses] = useState<AssignedCourses | null>(null);

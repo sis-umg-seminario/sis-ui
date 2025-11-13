@@ -1,7 +1,7 @@
-import { type OfferingCourse, type EligibleCourses } from "@/types/courseAssignment";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import { Button } from "./ui/button";
-import { Checkbox } from "./ui/checkbox";
+import { type OfferingCourse, type EligibleCourses } from "@/types/academic/courseAssignment";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { Button } from "../ui/button";
+import { Checkbox } from "../ui/checkbox";
 import { useState } from "react";
 
 interface CourseGroup {

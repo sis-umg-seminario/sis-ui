@@ -1,9 +1,9 @@
-import AssignEligibleCourses from "@/components/AssignEligibleCourses";
-import FormCourseAssignment from "@/components/FormCourseAssignment";
+import AssignEligibleCourses from "@/components/academic/AssignEligibleCourses";
+import FormCourseAssignment from "@/components/academic/FormCourseAssignment";
 import Layout from "@/components/Layout";
-import { useFindEligibleCourses } from "@/hooks/courseAssignment/useFindEligibleCourses";
-import { useRegister } from "@/hooks/courseAssignment/useRegister";
-import type { OfferingCourse, TermType } from "@/types/courseAssignment";
+import { useFindEligibleCourses } from "@/hooks/academic/useFindEligibleCourses";
+import { useRegister } from "@/hooks/academic/useRegister";
+import type { OfferingCourse, TermType } from "@/types/academic/courseAssignment";
 import { useState } from "react";
 import Modal from "@/components/Modal";
 import Loader from "@/components/Loader";

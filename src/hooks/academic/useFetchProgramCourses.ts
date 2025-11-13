@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { programCoursesService } from "../../services/programCoursesService";
-import type { ProgramCourses } from "../../types/programCourses";
+import { programCoursesService } from "../../services/academic/programCoursesService";
+import type { ProgramCourses } from "../../types/academic/programCourses";
 
 export function useFetchProgramCourses(programId: number, studentId: number) {
   const [programCourses, setProgramCourses] = useState<ProgramCourses | null>(null);
