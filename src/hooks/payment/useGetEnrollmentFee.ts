@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { paymentService } from "@/services/paymentService";
-import type { EnrollmentFeeResponse } from "@/types/payment";
+import { paymentService } from "@/services/payments/paymentService";
+import type { EnrollmentFeeResponse } from "@/types/payments/payment";
 
 export function useGetEnrollmentFee() {
   const [enrollmentFee, setEnrollmentFee] = useState<EnrollmentFeeResponse | null>(null);

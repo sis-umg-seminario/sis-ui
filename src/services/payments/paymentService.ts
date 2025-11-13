@@ -1,10 +1,10 @@
-import { apiClient } from "./apiClient";
+import { apiClient } from "../apiClient";
 import {
   type PaymentTypesResponse,
   type EnrollmentFeeResponse,
   type ProcessPaymentPayload,
   type ProcessPaymentResponse
-} from "@/types/payment";
+} from "@/types/payments/payment";
 
 export const paymentService = {
 

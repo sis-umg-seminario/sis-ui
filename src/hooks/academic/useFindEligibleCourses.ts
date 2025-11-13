@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { courseAssignmentService } from "../../services/courseAssignmentService";
-import type { EligibleCourses, TermType } from "../../types/courseAssignment";
+import { courseAssignmentService } from "../../services/academic/courseAssignmentService";
+import type { EligibleCourses, TermType } from "../../types/academic/courseAssignment";
 
 export function useFindEligibleCourses() {
   const [eligibleCourses, setEligibleCourses] = useState<EligibleCourses>();

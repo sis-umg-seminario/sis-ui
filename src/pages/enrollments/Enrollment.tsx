@@ -1,15 +1,15 @@
 import Layout from "@/components/Layout";
-import FormFindEnrollment from "@/components/FormFindEnrollment";
-import FormProcessPayment from "@/components/FormProcessPayment";
+import FormFindEnrollment from "@/components/enrollments/FormFindEnrollment";
+import FormProcessPayment from "@/components/payments/FormProcessPayment";
 import { useGetEnrollmentFee } from "@/hooks/payment/useGetEnrollmentFee";
 import { useProcessPayment } from "@/hooks/payment/useProcessPayment";
 import { useState } from "react";
-import Modal from "../components/Modal";
-import Loader from "../components/Loader";
-import ErrorModal from "../components/ErrorModal";
-import type { PaymentDetails } from "@/types/payment";
+import Modal from "../../components/Modal";
+import Loader from "../../components/Loader";
+import ErrorModal from "../../components/ErrorModal";
+import type { PaymentDetails } from "@/types/payments/payment";
 
-export default function EnrollmentPage() {
+export default function Enrollment() {
   const { enrollmentFee, loading: loadingFee, error: errorFee, findEnrollmentFee, resetError } = useGetEnrollmentFee();
   const { paymentResult, loading: loadingPayment, error: errorPayment, pay, resetPaymentError } = useProcessPayment();
 
