@@ -10,26 +10,30 @@ import Balance from './pages/payments/Balance';
 import AssignedCourses from './pages/professor/AssignedCourses';
 import AssignedCourse from './pages/professor/AssignedCourse';
 import Grades from './pages/students/Grades';
+import { useAuth } from './hooks/auth/useAuth';
+import Login from './pages/auth/login';
 
 const AppRoutes = () => {
-  
+  const { isAuthenticated } = useAuth();
+
   const routes = useRoutes([
-    { path: '/', element: <Home />},
-    { path: '/home', element: <Home />},
+    { path: '/login', element: <Login />},
+    { path: '/', element: isAuthenticated ? <Home /> : <Login />},
+    { path: '/home', element: isAuthenticated ? <Home /> : <Login />},
     { path: '/about', element: <About />},
     //Academic
-    { path: '/course-assignment', element: <CourseAssignment />},
-    { path: '/program-courses', element: <ProgramCourses />},
+    { path: '/course-assignment', element: isAuthenticated ? <CourseAssignment /> : <Login />},
+    { path: '/program-courses', element: isAuthenticated ? <ProgramCourses /> : <Login />},
     //Enrollments
-    { path: '/enrollment', element: <Enrollment />},
+    { path: '/enrollment', element: isAuthenticated ? <Enrollment /> : <Login />},
     //Students
-    { path: '/course-schedule', element: <CourseSchedule />},
-    { path: '/grades', element: <Grades />},
+    { path: '/course-schedule', element: isAuthenticated ? <CourseSchedule /> : <Login />},
+    { path: '/grades', element: isAuthenticated ? <Grades /> : <Login />},
     //payments
-    { path: '/balance', element: <Balance />},
+    { path: '/balance', element: isAuthenticated ? <Balance /> : <Login />},
     //Professor
-    { path: '/assigned-courses', element: <AssignedCourses />},
-    { path: '/assigned-courses/:id', element: <AssignedCourse />},
+    { path: '/assigned-courses', element: isAuthenticated ? <AssignedCourses /> : <Login />},
+    { path: '/assigned-courses/:id', element: isAuthenticated ? <AssignedCourse /> : <Login />},
     { path: '*', element: <NotFound />},
   ])
   return routes;
