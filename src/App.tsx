@@ -6,10 +6,10 @@ import CourseAssignment from './pages/academic/CourseAssignment';
 import Enrollment from './pages/enrollments/Enrollment';
 import CourseSchedule from './pages/students/CourseSchedule';
 import ProgramCourses from './pages/academic/ProgramCourses';
-import Balance from './pages/payments/Balance';
 import AssignedCourses from './pages/professor/AssignedCourses';
 import AssignedCourse from './pages/professor/AssignedCourse';
 import Grades from './pages/students/Grades';
+import AccountStatementPage from './pages/students/AccountStatementPage';
 
 const AppRoutes = () => {
   
@@ -26,7 +26,7 @@ const AppRoutes = () => {
     { path: '/course-schedule', element: <CourseSchedule />},
     { path: '/grades', element: <Grades />},
     //payments
-    { path: '/balance', element: <Balance />},
+    { path: '/account-statement', element: <AccountStatementPage />},
     //Professor
     { path: '/assigned-courses', element: <AssignedCourses />},
     { path: '/assigned-courses/:id', element: <AssignedCourse />},

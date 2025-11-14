@@ -23,7 +23,7 @@ export default function NavMenu({ vertical = false, onNavigate }: Props) {
     { to: "/grades", label: "Notas", icon: FileText },
     { to: "/course-schedule", label: "Consulta de Horario", icon: Calendar },
     { to: "/course-assignment", label: "Asignación", icon: Pencil },
-    { to: "/balance", label: "Estado de Cuenta", icon: Wallet }, 
+    { to: "/account-statement", label: "Estado de Cuenta", icon: Wallet }, 
     { to: "/library", label: "Biblioteca", icon: ClipboardList },
   ];
 
