@@ -4,7 +4,7 @@ import Loader from "@/components/Loader";
 import Modal from "@/components/Modal";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { useFetchStudentProfile } from "@/hooks/student/useFetchStudentProfile";
-import { Bell, Settings, BookOpen, Calendar, FileText, Pencil, Wallet, Archive } from "lucide-react";
+import { BookOpen, Calendar, FileText, Pencil, Wallet, Archive } from "lucide-react";
 
 export default function Home() {
   const { studentUser } = useAuth();

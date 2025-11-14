@@ -6,7 +6,6 @@ import {
   BookOpen,
   Clock,
   CalendarDays,
-  GraduationCap,
   Briefcase,
   CalendarCheck,
 } from "lucide-react";
