@@ -31,9 +31,9 @@ export default function FormCourseSchedule({ isLoading, onSubmit }: FormCourseSc
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden"
+        className="bg-card rounded-xl border shadow-sm overflow-hidden"
       >
-        <div className="flex items-center justify-center gap-2 h-16 bg-blue-950 text-white">
+        <div className="flex items-center justify-center gap-2 h-16 bg-primary text-primary-foreground">
           <CalendarDays size={24} />
           <h2 className="font-bold text-xl">Consulta de Horario</h2>
         </div>
@@ -98,18 +98,8 @@ export default function FormCourseSchedule({ isLoading, onSubmit }: FormCourseSc
                     </SelectTrigger>
                     <SelectContent>
                       {[
-                        "Enero",
-                        "Febrero",
-                        "Marzo",
-                        "Abril",
-                        "Mayo",
-                        "Junio",
-                        "Julio",
-                        "Agosto",
-                        "Septiembre",
-                        "Octubre",
-                        "Noviembre",
-                        "Diciembre",
+                        "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+                        "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre",
                       ].map((month, i) => (
                         <SelectItem key={i + 1} value={String(i + 1)}>
                           {month}
@@ -126,7 +116,7 @@ export default function FormCourseSchedule({ isLoading, onSubmit }: FormCourseSc
 
           <Button
             type="submit"
-            className="self-center w-48 bg-blue-900 hover:bg-blue-700"
+            className="self-center w-48"
             disabled={isLoading}
           >
             {isLoading ? "Consultando..." : "Consultar Horario"}

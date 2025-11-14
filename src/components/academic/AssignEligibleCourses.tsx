@@ -44,12 +44,12 @@ export default function AssignEligibleCourses({
 
   return (
     <div className="w-full">
-      <h2 className="text-2xl font-bold text-blue-900 text-center mb-6">
+      <h2 className="text-2xl font-bold text-primary text-center mb-6">
         Asignación de Cursos
       </h2>
 
-      <div className="rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-        <div className="grid grid-cols-[1fr_140px_60px] bg-blue-900 text-white px-6 py-3 font-semibold">
+      <div className="rounded-xl border shadow-sm overflow-hidden">
+        <div className="grid grid-cols-[1fr_140px_60px] bg-primary text-primary-foreground px-6 py-3 font-semibold">
           <span>Curso</span>
           <span className="text-center">Sección</span>
           <span className="text-center">Asignar</span>
@@ -58,11 +58,11 @@ export default function AssignEligibleCourses({
         {courses.map((course, i) => (
           <div
             key={i}
-            className="grid grid-cols-[1fr_140px_60px] items-center px-6 py-3 border-t border-gray-200 hover:bg-gray-50"
+            className="grid grid-cols-[1fr_140px_60px] items-center px-6 py-3 border-t hover:bg-accent"
           >
             <div>
-              <p className="font-medium text-gray-800">{course.courseName}</p>
-              <p className="text-xs text-gray-500">
+              <p className="font-medium text-foreground">{course.courseName}</p>
+              <p className="text-xs text-muted-foreground">
                 {course.professor} • {course.startTime} - {course.endTime}
               </p>
             </div>
@@ -97,7 +97,7 @@ export default function AssignEligibleCourses({
         <Button
           disabled={!selectedCourses.length}
           onClick={() => onConfirm(selectedCourses)}
-          className="w-48 bg-blue-900 hover:bg-blue-700 text-white"
+          className="w-48"
         >
           Confirmar Asignación
         </Button>

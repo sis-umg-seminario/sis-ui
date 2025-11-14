@@ -1,4 +1,3 @@
-// src/components/ui/Modal.tsx
 import type { ReactNode } from "react";
 import { X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -21,15 +20,15 @@ export default function Modal({ open, title, onClose, children }: ModalProps) {
           exit={{ opacity: 0 }}
         >
           <motion.div
-            className="bg-white rounded-2xl shadow-xl w-full max-w-md mx-4 overflow-hidden"
+            className="bg-card rounded-2xl shadow-xl w-full max-w-md mx-4 overflow-hidden"
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
           >
-            <div className="flex items-center justify-between border-b px-5 py-3 bg-blue-900 text-white">
+            <div className="flex items-center justify-between border-b px-5 py-3 bg-primary text-primary-foreground">
               <h3 className="font-semibold text-lg">{title}</h3>
               {onClose && (
-                <button onClick={onClose} className="hover:text-gray-300">
+                <button onClick={onClose} className="hover:text-primary-foreground/80">
                   <X size={20} />
                 </button>
               )}

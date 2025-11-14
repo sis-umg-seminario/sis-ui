@@ -3,6 +3,7 @@ import { useFetchProgramCourses } from '../../hooks/academic/useFetchProgramCour
 import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useAuth } from '@/hooks/auth/useAuth';
+import Loader from '@/components/Loader';
 
 export default function ProgramCourses() {
   const { studentUser } = useAuth();
@@ -12,14 +13,16 @@ export default function ProgramCourses() {
   if (loading)
     return (
       <Layout>
-        <div className="p-4">Cargando...</div>
+        <div className="p-4 grid place-items-center h-[80vh]">
+            <Loader message="Cargando pensum..." />
+        </div>
       </Layout>
     );
 
   if (error)
     return (
       <Layout>
-        <div className="p-4 text-red-500">{error}</div>
+        <div className="p-4 text-destructive">{error}</div>
       </Layout>
     );
 
@@ -39,23 +42,23 @@ export default function ProgramCourses() {
   return (
     <Layout>
       <div className="p-6 max-w-3xl mx-auto">
-        <h1 className="text-2xl font-bold text-orange-600 text-center mb-2">
+        <h1 className="text-2xl font-bold text-primary text-center mb-2">
           {programCourses.careerName}
         </h1>
-        <p className="text-center font-semibold text-gray-700">{programCourses.studentName}</p>
-        <p className="text-center text-gray-500 mb-6">
+        <p className="text-center font-semibold text-foreground">{programCourses.studentName}</p>
+        <p className="text-center text-muted-foreground mb-6">
           Créditos Aprobados: <span className="font-medium">{programCourses.creditsEarned}</span>
         </p>
 
         {Object.entries(groupedCourses).map(([termTitle, courses]) => (
-          <div key={termTitle} className="mb-4 border rounded-xl shadow-sm">
+          <div key={termTitle} className="mb-4 border rounded-xl shadow-sm bg-card overflow-hidden">
             <button
               onClick={() =>
                 setOpenTerm(openTerm === courses[0].termId ? null : courses[0].termId)
               }
-              className="flex justify-between w-full px-4 py-3 text-left bg-gray-100 hover:bg-gray-200 rounded-t-xl"
+              className="flex justify-between w-full px-4 py-3 text-left bg-secondary hover:bg-secondary/80"
             >
-              <span className="font-semibold text-gray-800">{termTitle}</span>
+              <span className="font-semibold text-secondary-foreground">{termTitle}</span>
               {openTerm === courses[0].termId ? (
                 <ChevronUp size={20} />
               ) : (
@@ -64,12 +67,12 @@ export default function ProgramCourses() {
             </button>
 
             {openTerm === courses[0].termId && (
-              <ul className="divide-y">
+              <ul className="divide-y divide-border">
                 {courses.map((course) => (
-                  <li key={course.courseId} className="flex justify-between items-center px-4 py-2">
+                  <li key={course.courseId} className="flex justify-between items-center px-4 py-3">
                     <div>
-                      <p className="font-medium text-gray-800">{course.name}</p>
-                      <p className="text-sm text-gray-500">
+                      <p className="font-medium text-foreground">{course.name}</p>
+                      <p className="text-sm text-muted-foreground">
                         {course.prerequisiteType === 'CREDITS'
                           ? `Requiere ${course.requiredCredits} créditos`
                           : course.prerequisiteCourseId
@@ -78,10 +81,10 @@ export default function ProgramCourses() {
                       </p>
                     </div>
                     <span
-                      className={`text-sm font-semibold px-3 py-1 rounded-full ${
+                      className={`text-xs font-semibold px-2 py-1 rounded-full ${
                         course.status === 'APPROVED'
-                          ? 'bg-green-100 text-green-700'
-                          : 'bg-yellow-100 text-yellow-700'
+                          ? 'bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300'
+                          : 'bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-300'
                       }`}
                     >
                       {course.status === 'APPROVED' ? 'Aprobado' : 'Pendiente'}

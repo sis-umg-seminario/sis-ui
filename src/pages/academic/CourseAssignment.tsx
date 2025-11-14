@@ -62,11 +62,11 @@ export default function CourseAssignment() {
     return (
       <Layout>
         <div className="w-full h-full flex justify-center items-center">
-          <div className="text-center p-8 border-2 border-green-500 rounded-lg shadow-md bg-white max-w-md w-full">
-            <h2 className="text-2xl font-bold text-green-600 mb-3">
+          <div className="text-center p-8 border-2 border-green-500 rounded-lg shadow-md bg-card max-w-md w-full">
+            <h2 className="text-2xl font-bold text-green-500 mb-3">
               ¡Asignación Exitosa!
             </h2>
-            <p className="text-gray-700">{registerResult.message}</p>
+            <p className="text-foreground">{registerResult.message}</p>
           </div>
         </div>
       </Layout>
@@ -76,7 +76,7 @@ export default function CourseAssignment() {
   return (
     <Layout>
       <div className="w-full min-h-[80vh] flex justify-center items-center">
-        <div className="w-full max-w-4xl bg-white shadow-lg rounded-xl p-8 border border-gray-100">
+        <div className="w-full max-w-4xl bg-card shadow-lg rounded-xl p-8 border">
           {eligibleCourses ? (
             <AssignEligibleCourses
               eligibleCourses={eligibleCourses}

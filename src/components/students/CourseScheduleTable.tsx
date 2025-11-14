@@ -8,31 +8,31 @@ interface CourseScheduleTableProps {
 
 export default function CourseScheduleTable({ scheduleData }: CourseScheduleTableProps) {
   return (
-    <div className="overflow-hidden border border-gray-200 rounded-xl shadow-sm">
-      <div className="flex items-center justify-center gap-2 py-4 bg-blue-950 text-white">
+    <div className="overflow-hidden border rounded-xl shadow-sm">
+      <div className="flex items-center justify-center gap-2 py-4 bg-primary text-primary-foreground">
         <CalendarDays size={24} />
         <h2 className="font-bold text-xl text-center">Horario de Cursos Asignados</h2>
       </div>
-      <div className="p-4 overflow-x-auto bg-white">
+      <div className="p-4 overflow-x-auto bg-card">
         <Table>
           <TableHeader>
-            <TableRow className="bg-blue-50">
-              <TableHead className="font-semibold text-gray-800">Curso</TableHead>
-              <TableHead className="font-semibold text-gray-800 text-center">Sección</TableHead>
-              <TableHead className="font-semibold text-gray-800 text-center">Hora Inicio</TableHead>
-              <TableHead className="font-semibold text-gray-800 text-center">Hora Fin</TableHead>
+            <TableRow className="bg-muted/50 hover:bg-muted/60 border-b-primary/20">
+              <TableHead className="font-semibold text-foreground">Curso</TableHead>
+              <TableHead className="font-semibold text-foreground text-center">Sección</TableHead>
+              <TableHead className="font-semibold text-foreground text-center">Hora Inicio</TableHead>
+              <TableHead className="font-semibold text-foreground text-center">Hora Fin</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {scheduleData.courses.map((course) => (
               <TableRow
                 key={course.courseId}
-                className="hover:bg-blue-50 transition-colors"
+                className="hover:bg-muted transition-colors"
               >
-                <TableCell className="text-gray-700">{course.name}</TableCell>
-                <TableCell className="text-center text-gray-700">{course.section}</TableCell>
-                <TableCell className="text-center text-gray-700">{course.startTime}</TableCell>
-                <TableCell className="text-center text-gray-700">{course.endTime}</TableCell>
+                <TableCell className="text-foreground">{course.name}</TableCell>
+                <TableCell className="text-center text-foreground">{course.section}</TableCell>
+                <TableCell className="text-center text-foreground">{course.startTime}</TableCell>
+                <TableCell className="text-center text-foreground">{course.endTime}</TableCell>
               </TableRow>
             ))}
           </TableBody>

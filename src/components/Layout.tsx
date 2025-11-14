@@ -1,20 +1,20 @@
-// src/components/Layout.tsx
 import { useState } from "react";
 import NavMenu from "./NavMenu";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import { Menu } from "lucide-react";
+import { ModeToggle } from "./ModeToggle";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-background">
       {/* Top bar for mobile */}
-      <header className="sm:hidden flex items-center justify-between px-4 py-3 bg-white shadow-sm">
+      <header className="sm:hidden flex items-center justify-between px-4 py-3 bg-card shadow-sm border-b">
         <div className="flex items-center gap-3">
           <button
-            className="p-2 rounded-md hover:bg-gray-100"
+            className="p-2 rounded-md hover:bg-accent"
             onClick={() => setOpen((s) => !s)}
             aria-label="menu"
           >
@@ -22,16 +22,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </button>
           <Link to="/" className="flex items-center gap-2">
             <img src={logo} alt="logo" className="w-10 h-10 object-contain" />
-            <span className="font-semibold text-lg">MyUniversity</span>
+            <span className="font-semibold text-lg text-foreground">MyUniversity</span>
           </Link>
         </div>
+        <ModeToggle />
       </header>
 
       <div className="flex flex-1">
         {/* Sidebar */}
         <aside
           className={`
-            bg-blue-950 text-white w-64 p-6 hidden sm:flex flex-col items-center gap-8
+            bg-primary text-primary-foreground w-64 p-6 hidden sm:flex flex-col items-center gap-8
           `}
         >
           <Link to="/" className="flex flex-col items-center">
@@ -41,11 +42,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
           <NavMenu vertical />
 
-          <div className="mt-auto text-xs opacity-75">© {new Date().getFullYear()}</div>
+          <div className="mt-auto flex flex-col items-center gap-4">
+            <ModeToggle />
+            <div className="text-xs opacity-75">© {new Date().getFullYear()}</div>
+          </div>
         </aside>
 
         <div
-          className={`fixed inset-y-0 left-0 z-40 w-64 bg-blue-950 p-6 text-white transform transition-transform sm:hidden
+          className={`fixed inset-y-0 left-0 z-40 w-64 bg-primary p-6 text-primary-foreground transform transition-transform sm:hidden
             ${open ? "translate-x-0" : "-translate-x-full"}`}
         >
           <div className="flex items-center justify-between mb-6">
@@ -53,7 +57,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <img src={logo} alt="logo" className="w-10 h-10 object-contain" />
               <span className="font-semibold">MiCampus</span>
             </Link>
-            <button onClick={() => setOpen(false)} aria-label="cerrar" className="text-white">✕</button>
+            <button onClick={() => setOpen(false)} aria-label="cerrar" className="text-primary-foreground">✕</button>
           </div>
           <NavMenu vertical onNavigate={() => setOpen(false)} />
         </div>
