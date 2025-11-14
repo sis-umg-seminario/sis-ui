@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { paymentService } from "@/services/payments/paymentService";
 import { type AccountStatementResponse } from "@/types/students/accountStatement";
 
-export function useGetAccountStatement() {
+export function useGetAccountStatement(studentId: number) {
   const [statement, setStatement] = useState<AccountStatementResponse | null>(null);
   const [loading, setLoading] = useState(true); 
   const [error, setError] = useState<string | null>(null);
@@ -10,7 +10,6 @@ export function useGetAccountStatement() {
   useEffect(() => {
     const fetchStatement = async () => {
       try {
-        const studentId = 1;
         const year = 2025;
         const startMonth = 7;
         const termType = "SEMESTER";
@@ -30,7 +29,7 @@ export function useGetAccountStatement() {
     };
 
     fetchStatement(); 
-  }, []); 
+  }, [studentId]); 
 
   return { statement, loading, error };
 }

@@ -2,9 +2,11 @@ import Layout from "@/components/Layout";
 import { useGetAccountStatement } from "@/hooks/student/useGetAccountStatement";
 import AccountStatementDetail from "@/components/students/AccountStatementDetail";
 import { Skeleton } from "@/components/ui/skeleton"; 
+import { useAuth } from "@/hooks/auth/useAuth";
 
 export default function AccountStatementPage() {
-    const { statement, loading, error } = useGetAccountStatement();
+    const { studentUser } = useAuth();
+    const { statement, loading, error } = useGetAccountStatement(studentUser?.profileInformation?.studentId || 0);
 
     return (
         <Layout>
