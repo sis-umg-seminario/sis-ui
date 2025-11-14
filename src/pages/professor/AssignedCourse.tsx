@@ -13,7 +13,7 @@ import type { StudentGrades } from "@/types/professor/studentGrades";
 import { useState, useEffect } from "react";
 
 interface CourseGradesProps {
-  editable?: boolean; // true => modo profesor (puede modificar notas)
+  editable?: boolean;
 }
 
 const gradeLimits = {
@@ -37,7 +37,6 @@ export default function AssignedCourse({ editable = true }: CourseGradesProps) {
 
   const [grades, setGrades] = useState<StudentGrades["students"]>([]);
 
-  // sincroniza con los datos cargados
   useEffect(() => {
     if (studentGrades?.students) {
       setGrades(studentGrades.students);
@@ -56,11 +55,6 @@ export default function AssignedCourse({ editable = true }: CourseGradesProps) {
             scores: s.scores.map((g) =>
               g.type === type ? { ...g, value } : g
             ),
-            total: s.scores.reduce(
-              (sum, g) =>
-                g.type === type ? sum + value - g.value : sum + g.value,
-              0
-            ),
           }
         : s
     );
@@ -69,26 +63,25 @@ export default function AssignedCourse({ editable = true }: CourseGradesProps) {
   };
 
   const calculateTotal = (scores: StudentGrades["students"][number]["scores"]) =>
-    scores.reduce((sum, g) => sum + g.value, 0);
+    scores.reduce((sum, g) => sum + (g.value || 0), 0);
 
   return (
     <Layout>
       <div className="p-6 max-w-7xl mx-auto min-h-[80vh]">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-blue-800 mb-2">
+          <h1 className="text-3xl font-bold text-primary mb-2">
             Calificaciones del Curso
           </h1>
-          <p className="text-gray-600">
+          <p className="text-muted-foreground">
             Visualiza o actualiza las notas de los estudiantes
           </p>
         </div>
 
-        {/* Grid de estudiantes */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {grades.map((student) => (
             <Card
               key={student.studentId}
-              className="shadow-sm hover:shadow-lg transition-all duration-200 border border-gray-200"
+              className="shadow-sm hover:shadow-lg transition-all duration-200"
             >
               <CardHeader className="flex flex-col items-center">
                 <img
@@ -100,13 +93,14 @@ export default function AssignedCourse({ editable = true }: CourseGradesProps) {
                   alt={student.name}
                   className="w-16 h-16 rounded-full mb-3 object-cover"
                 />
-                <CardTitle className="text-lg text-blue-900">
+                <CardTitle className="text-lg text-foreground">
                   {student.name}
                 </CardTitle>
                 <Badge
                   variant={
-                    student.status === "APPROVED" ? "success" : "destructive"
+                    student.status === "APPROVED" ? "default" : "destructive"
                   }
+                  className={student.status === "APPROVED" ? "bg-green-600" : ""}
                 >
                   {student.status === "APPROVED" ? "Aprobado" : "Reprobado"}
                 </Badge>
@@ -118,7 +112,7 @@ export default function AssignedCourse({ editable = true }: CourseGradesProps) {
                     key={score.type}
                     className="flex justify-between items-center"
                   >
-                    <span className="capitalize text-gray-700">
+                    <span className="capitalize text-muted-foreground">
                       {score.type === "midtermExam1"
                         ? "Parcial 1"
                         : score.type === "midtermExam2"
@@ -149,11 +143,11 @@ export default function AssignedCourse({ editable = true }: CourseGradesProps) {
                   </div>
                 ))}
 
-                <hr className="my-2" />
+                <hr className="my-2 border-border" />
 
                 <div className="flex justify-between items-center">
-                  <span className="font-semibold text-gray-800">Total</span>
-                  <span className="text-lg font-bold text-blue-900">
+                  <span className="font-semibold text-foreground">Total</span>
+                  <span className="text-lg font-bold text-primary">
                     {calculateTotal(student.scores)}
                   </span>
                 </div>
@@ -174,12 +168,10 @@ export default function AssignedCourse({ editable = true }: CourseGradesProps) {
           ))}
         </div>
 
-        {/* Estado de carga */}
         <Modal open={isLoading} title="Cargando">
           <Loader message="Cargando calificaciones, por favor espera..." />
         </Modal>
 
-        {/* Estado de error */}
         <ErrorModal
           open={hasError && !isLoading}
           message={studentsError ?? gradesError ?? ""}

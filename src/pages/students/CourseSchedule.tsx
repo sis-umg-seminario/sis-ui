@@ -30,12 +30,10 @@ export default function CourseSchedule() {
         </div>
       </div>
 
-      {/* Loader mientras consulta */}
       <Modal open={loading} title="Procesando">
         <Loader message="Consultando horario, por favor espera..." />
       </Modal>
 
-      {/* Modal de error */}
       <ErrorModal
         open={!!error && !loading}
         message={error ?? ""}

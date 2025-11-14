@@ -11,8 +11,8 @@ export default function ErrorModal({ message, open, onClose }: ErrorModalProps) 
   return (
     <Modal open={open} title="Error" onClose={onClose}>
       <div className="flex flex-col items-center gap-3 text-center">
-        <AlertTriangle className="text-red-500" size={48} />
-        <p className="text-gray-800">{message}</p>
+        <AlertTriangle className="text-destructive" size={48} />
+        <p className="text-foreground">{message}</p>
       </div>
     </Modal>
   );

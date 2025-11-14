@@ -1,7 +1,6 @@
 import { type AccountStatementResponse } from "@/types/students/accountStatement";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-// 1. Importamos los componentes de la tarjeta
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface Props {
@@ -11,12 +10,11 @@ interface Props {
 export default function AccountStatementDetail({ data }: Props) {
     const isSolvente = data.status === 'SOLVENTE';
 
-    // 2. Envolvemos todo en un componente Card
     return (
-        <Card className="w-full max-w-4xl">
+        <Card className="w-full max-w-4xl mx-auto">
             <CardHeader>
                 <CardTitle className="text-2xl">Estado de Cuenta</CardTitle>
-                <p className="text-gray-500">{data.program}</p>
+                <p className="text-muted-foreground">{data.program}</p>
                 <div className="!mt-4 pt-4 border-t">
                     <p className="font-semibold">{data.Name}</p>
                     <p>Saldo: <span className="font-bold">{data.currency} {data.totals.balance.toFixed(2)}</span></p>
@@ -27,7 +25,6 @@ export default function AccountStatementDetail({ data }: Props) {
             </CardHeader>
 
             <CardContent>
-                {/* La lista de transacciones se queda igual */}
                 <Accordion type="single" collapsible className="w-full">
                     {data.items.map((item) => (
                         <AccordionItem value={`item-${item.transactionId}`} key={item.transactionId}>
