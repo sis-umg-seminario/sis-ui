@@ -10,29 +10,52 @@ import Balance from './pages/payments/Balance';
 import AssignedCourses from './pages/professor/AssignedCourses';
 import AssignedCourse from './pages/professor/AssignedCourse';
 import Grades from './pages/students/Grades';
+import { useAuth } from './hooks/auth/useAuth';
+import Login from './pages/auth/login';
 
 const AppRoutes = () => {
-  
-  const routes = useRoutes([
-    { path: '/', element: <Home />},
-    { path: '/home', element: <Home />},
+  const { isAuthenticated, user } = useAuth();
+
+  const routes = [];
+
+  routes.push(
+    { path: '/login', element: <Login />},
     { path: '/about', element: <About />},
-    //Academic
-    { path: '/course-assignment', element: <CourseAssignment />},
-    { path: '/program-courses', element: <ProgramCourses />},
-    //Enrollments
-    { path: '/enrollment', element: <Enrollment />},
-    //Students
-    { path: '/course-schedule', element: <CourseSchedule />},
-    { path: '/grades', element: <Grades />},
-    //payments
-    { path: '/balance', element: <Balance />},
-    //Professor
-    { path: '/assigned-courses', element: <AssignedCourses />},
-    { path: '/assigned-courses/:id', element: <AssignedCourse />},
-    { path: '*', element: <NotFound />},
-  ])
-  return routes;
+  );
+  
+  if (user?.roles.includes('student')) {
+    routes.push(
+      { path: '/', element: isAuthenticated ? <Home /> : <Login />},
+      { path: '/home', element: isAuthenticated ? <Home /> : <Login />},
+      //Academic
+      { path: '/course-assignment', element: isAuthenticated ? <CourseAssignment /> : <Login />},
+      { path: '/program-courses', element: isAuthenticated ? <ProgramCourses /> : <Login />},
+      //Enrollments
+      { path: '/enrollment', element: isAuthenticated ? <Enrollment /> : <Login />},
+      //Students
+      { path: '/course-schedule', element: isAuthenticated ? <CourseSchedule /> : <Login />},
+      { path: '/grades', element: isAuthenticated ? <Grades /> : <Login />},
+      //payments
+      { path: '/balance', element: isAuthenticated ? <Balance /> : <Login />},
+    );
+  }
+
+  if (user?.roles.includes('professor')) {
+    routes.push(
+      { path: '/', element: isAuthenticated ? <AssignedCourses /> : <Login />},
+      { path: '/home', element: isAuthenticated ? <AssignedCourses /> : <Login />},
+      //Professor
+      { path: '/assigned-courses', element: isAuthenticated ? <AssignedCourses /> : <Login />},
+      { path: '/assigned-courses/:id', element: isAuthenticated ? <AssignedCourse /> : <Login />},
+    );
+  }
+
+  routes.push(
+    { path: '*', element: isAuthenticated ? <NotFound /> : <Login /> },
+  );
+
+  const router = useRoutes(routes)
+  return router;
 }
 
 export default function App() {
