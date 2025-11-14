@@ -6,10 +6,10 @@ import CourseAssignment from './pages/academic/CourseAssignment';
 import Enrollment from './pages/enrollments/Enrollment';
 import CourseSchedule from './pages/students/CourseSchedule';
 import ProgramCourses from './pages/academic/ProgramCourses';
-import Balance from './pages/payments/Balance';
 import AssignedCourses from './pages/professor/AssignedCourses';
 import AssignedCourse from './pages/professor/AssignedCourse';
 import Grades from './pages/students/Grades';
+import AccountStatementPage from './pages/students/AccountStatementPage';
 import { useAuth } from './hooks/auth/useAuth';
 import Login from './pages/auth/login';
 
@@ -36,7 +36,7 @@ const AppRoutes = () => {
       { path: '/course-schedule', element: isAuthenticated ? <CourseSchedule /> : <Login />},
       { path: '/grades', element: isAuthenticated ? <Grades /> : <Login />},
       //payments
-      { path: '/balance', element: isAuthenticated ? <Balance /> : <Login />},
+      { path: '/account-statement', element: isAuthenticated ? <AccountStatementPage /> : <Login />},
     );
   }
 

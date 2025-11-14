@@ -20,7 +20,8 @@ export const studentService = {
         termType,
       },
     });
-  },
+  }, 
+
   getGrades: (startMonth: number, termType: TermType) => apiClient<Grades>(`/students/student-grades`, {
     params: { startMonth, termType }
   }),
