@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { paymentService } from "@/services/paymentService";
-import type { ProcessPaymentPayload, ProcessPaymentResponse } from "@/types/payment";
+import { paymentService } from "@/services/payments/paymentService";
+import type { ProcessPaymentPayload, ProcessPaymentResponse } from "@/types/payments/payment";
 
 export function useProcessPayment() {
   const [paymentResult, setPaymentResult] = useState<ProcessPaymentResponse | null>(null);
@@ -21,5 +21,9 @@ export function useProcessPayment() {
     }
   };
 
-  return { paymentResult, loading, error, pay };
+  const resetPaymentError = () => {
+    setError(null);
+  };
+
+  return { paymentResult, loading, error, pay, resetPaymentError };
 }

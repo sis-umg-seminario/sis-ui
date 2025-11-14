@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { courseAssignmentService } from "../../services/courseAssignmentService";
-import type { EligibleCourses, TermType } from "../../types/courseAssignment";
+import { courseAssignmentService } from "../../services/academic/courseAssignmentService";
+import type { EligibleCourses, TermType } from "../../types/academic/courseAssignment";
 
 export function useFindEligibleCourses() {
   const [eligibleCourses, setEligibleCourses] = useState<EligibleCourses>();
@@ -23,13 +23,15 @@ export function useFindEligibleCourses() {
       );
       setEligibleCourses(data);
     } catch (err) {
-      setError("Failed to fetch eligible courses: " + err);
+      setError("Ocurrió un error al obtener los cursos elegibles: ");
     } finally {
         setLoading(false);
       }
   };
 
+  const resetEligibleCoursesError = () => {
+    setError(null);
+  };
 
-
-  return { eligibleCourses, loading, error, findEligibleCourses };
+  return { eligibleCourses, loading, error, findEligibleCourses, resetEligibleCoursesError };
 }
