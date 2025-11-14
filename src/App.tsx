@@ -36,7 +36,6 @@ const AppRoutes = () => {
       { path: '/course-schedule', element: isAuthenticated ? <CourseSchedule /> : <Login />},
       { path: '/grades', element: isAuthenticated ? <Grades /> : <Login />},
       //payments
-      { path: '/balance', element: isAuthenticated ? <Balance /> : <Login />},
       { path: '/account-statement', element: isAuthenticated ? <AccountStatementPage /> : <Login />},
     );
   }
