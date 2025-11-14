@@ -17,20 +17,26 @@ type NavItem = {
 };
 
 export default function NavMenu({ vertical = false, onNavigate }: Props) {
-  const { logout} = useAuth();
+  const { logout, user } = useAuth();
 
   const base = "block rounded-md px-3 py-2 transition-colors duration-200";
 
-  const items: NavItem[] = [
-    { to: "/enrollment", label: "Inscripciones", icon: Calendar },
-    { to: "/program-courses", label: "Pensum", icon: BookOpen },
-    { to: "/grades", label: "Notas", icon: FileText },
-    { to: "/course-schedule", label: "Consulta de Horario", icon: Calendar },
-    { to: "/course-assignment", label: "Asignación", icon: Pencil },
-    { to: "/balance", label: "Estado de Cuenta", icon: Wallet }, 
-    { to: "/library", label: "Biblioteca", icon: ClipboardList },
+  const items: NavItem[] = [];
+
+  if(user?.roles.includes('student')) {
+    items.push(
+      { to: "/enrollment", label: "Inscripciones", icon: Calendar },
+      { to: "/program-courses", label: "Pensum", icon: BookOpen },
+      { to: "/grades", label: "Notas", icon: FileText },
+      { to: "/course-schedule", label: "Consulta de Horario", icon: Calendar },
+      { to: "/course-assignment", label: "Asignación", icon: Pencil },
+      { to: "/balance", label: "Estado de Cuenta", icon: Wallet }, 
+      { to: "/library", label: "Biblioteca", icon: ClipboardList },
+    );
+  }
+  items.push(
     { label: "Cerrar Sesión", icon: LogOut, action: logout },
-  ];
+  );
 
   return (
     <nav className={vertical ? "w-full" : "w-full"}>

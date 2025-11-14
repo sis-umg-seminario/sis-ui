@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import type { User } from "../../types/auth/User";
+import type { ProfessorUser, StudentUser, User } from "../../types/auth/User";
 
 interface AuthContextType {
   user: User | null;
@@ -7,6 +7,8 @@ interface AuthContextType {
   isAuthenticated: boolean;
   login: (email: string, password: string) => void;
   logout: () => void;
+  studentUser: StudentUser | null;
+  professorUser: ProfessorUser | null;
 }
 
 export const AuthContext = createContext<AuthContextType>({
@@ -15,4 +17,6 @@ export const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
   login: () => {},
   logout: () => {},
+  studentUser: null,
+  professorUser: null,
 });

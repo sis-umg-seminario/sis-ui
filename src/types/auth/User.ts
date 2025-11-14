@@ -9,6 +9,26 @@ export interface User{
 }
 export type Role = "admin" | "professor" | "student";
 
+export interface StudentUser{
+    userId: number;
+    email: string;
+    roles: Role[];
+    profileInformation: StudentProfile;
+    type: "access";
+    iat: number;
+    exp: number;
+}
+
+export interface ProfessorUser{
+    userId: number;
+    email: string;
+    roles: Role[];
+    profileInformation: ProfessorProfile;
+    type: "access";
+    iat: number;
+    exp: number;
+}
+
 //STUDENT PROFILE
 export interface StudentProfile{
     studentId: number;

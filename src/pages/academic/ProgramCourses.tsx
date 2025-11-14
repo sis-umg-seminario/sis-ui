@@ -2,9 +2,11 @@ import Layout from '@/components/Layout';
 import { useFetchProgramCourses } from '../../hooks/academic/useFetchProgramCourses';
 import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import { useAuth } from '@/hooks/auth/useAuth';
 
 export default function ProgramCourses() {
-  const { programCourses, loading, error } = useFetchProgramCourses(1, 1);
+  const { studentUser } = useAuth();
+  const { programCourses, loading, error } = useFetchProgramCourses(1, studentUser?.profileInformation.studentId || 0);
   const [openTerm, setOpenTerm] = useState<number | null>(null);
 
   if (loading)
