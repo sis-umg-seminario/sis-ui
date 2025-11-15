@@ -17,7 +17,6 @@ export default function Home() {
     { id: "grades", label: "Notas", icon: FileText, to: "/grades" },
     { id: "course-assignment", label: "Asignación", icon: Pencil, to: "/course-assignment" },
     { id: "balance", label: "Estado de Cuenta", icon: Wallet, to: "/account-statement" },
-    { id: "library", label: "Biblioteca", icon: Archive, to: "/library" },
   ];
 
   return (
@@ -91,7 +90,6 @@ export default function Home() {
           </div>
         </section>
 
-        <p className="mt-8 text-center text-xs text-muted-foreground">"Y conoceréis la verdad y la verdad os hará libres"</p>
       </div>
     </Layout>
   );

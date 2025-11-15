@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { BookOpen, Calendar, FileText, Pencil, ClipboardList, Wallet, LogOut } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import React from "react";
+import * as React from "react";
 import { useAuth } from "@/hooks/auth/useAuth";
 
 type Props = {
@@ -31,7 +31,6 @@ export default function NavMenu({ vertical = false, onNavigate }: Props) {
       { to: "/course-schedule", label: "Consulta de Horario", icon: Calendar },
       { to: "/course-assignment", label: "Asignación", icon: Pencil },
       { to: "/account-statement", label: "Estado de Cuenta", icon: Wallet },
-      { to: "/library", label: "Biblioteca", icon: ClipboardList },
     );
   }
   items.push(

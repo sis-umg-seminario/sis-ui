@@ -21,9 +21,14 @@ export function useGetEnrollmentFee() {
     }
   };
 
+  const resetEnrollmentFee = () => {
+    setEnrollmentFee(null);
+    setError(null);
+  };
+
   const resetError = () => {
     setError(null);
-  }
+  };
 
-  return { enrollmentFee, loading, error, findEnrollmentFee, resetError };
+  return { enrollmentFee, loading, error, findEnrollmentFee, resetEnrollmentFee, resetError };
 }
