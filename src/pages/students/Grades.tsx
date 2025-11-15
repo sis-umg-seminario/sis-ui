@@ -1,6 +1,12 @@
 import Layout from "@/components/Layout";
 import { useFindGrades } from "@/hooks/student/useFindGrades";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import Modal from "@/components/Modal";
 import ErrorModal from "@/components/ErrorModal";
@@ -20,10 +26,25 @@ export default function Grades() {
   };
 
   const months = [
-    { value: 1, label: "Enero" }, { value: 2, label: "Febrero" }, { value: 3, label: "Marzo" },
-    { value: 4, label: "Abril" }, { value: 5, label: "Mayo" }, { value: 6, label: "Junio" },
-    { value: 7, label: "Julio" }, { value: 8, label: "Agosto" }, { value: 9, label: "Septiembre" },
-    { value: 10, label: "Octubre" }, { value: 11, label: "Noviembre" }, { value: 12, label: "Diciembre" },
+    { value: 1, label: "Enero" },
+    { value: 2, label: "Febrero" },
+    { value: 3, label: "Marzo" },
+    { value: 4, label: "Abril" },
+    { value: 5, label: "Mayo" },
+    { value: 6, label: "Junio" },
+    { value: 7, label: "Julio" },
+    { value: 8, label: "Agosto" },
+    { value: 9, label: "Septiembre" },
+    { value: 10, label: "Octubre" },
+    { value: 11, label: "Noviembre" },
+    { value: 12, label: "Diciembre" },
+  ];
+
+  const gradeCategories = [
+    "midtermExam1",
+    "midtermExam2",
+    "assignments",
+    "final",
   ];
 
   return (
@@ -107,16 +128,22 @@ export default function Grades() {
                 </div>
 
                 <div className="flex flex-wrap items-center justify-between text-center text-sm text-foreground">
-                  {course.scores.map((score) => (
-                    <div key={score.type} className="flex-1 min-w-[60px]">
-                      <p className="font-semibold text-muted-foreground text-xs uppercase mb-1">
-                        {mapGradeLabel(score.type)}
-                      </p>
-                      <p className="text-base font-bold text-primary">
-                        {score.value !== null ? score.value : "—"}
-                      </p>
-                    </div>
-                  ))}
+                  {gradeCategories.map((category) => {
+                    const score = course.scores.find(
+                      (s) => s.type === category
+                    );
+
+                    return (
+                      <div key={category} className="flex-1 min-w-[60px]">
+                        <p className="font-semibold text-muted-foreground text-xs uppercase mb-1">
+                          {mapGradeLabel(category)}
+                        </p>
+                        <p className="text-base font-bold text-primary">
+                          {score?.value !== undefined ? score?.value : "NNI"}
+                        </p>
+                      </div>
+                    );
+                  })}
                   <div className="flex-1 min-w-[60px]">
                     <p className="font-semibold text-muted-foreground text-xs uppercase mb-1">
                       NF
@@ -136,9 +163,12 @@ export default function Grades() {
             ))}
           </div>
         ) : (
-          !loading && <div className="text-center text-muted-foreground mt-12">
-            No hay calificaciones para mostrar. Por favor, selecciona un período.
-          </div>
+          !loading && (
+            <div className="text-center text-muted-foreground mt-12">
+              No hay calificaciones para mostrar. Por favor, selecciona un
+              período.
+            </div>
+          )
         )}
 
         <Modal open={loading} title="Cargando">
@@ -148,7 +178,7 @@ export default function Grades() {
         <ErrorModal
           open={!!error && !loading}
           message={error ?? ""}
-          onClose={()=>window.location.reload()}
+          onClose={() => window.location.reload()}
         />
       </div>
     </Layout>
