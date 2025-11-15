@@ -37,30 +37,46 @@ export default function AssignedCourse({ editable = true }: CourseGradesProps) {
 
   const { courseStudents, loading: studentsLoading, error: studentsError } =
     useFetchCourseStudents(courseId);
+
   const { studentGrades: originalGrades, loading: gradesLoading, error: gradesError } =
     useFetchStudentGrades(courseId);
 
-  const { updateGrades, loading: updating, error: updateError } = useUpdateStudentGrades();
+  const { updateGrades, loading: updating, error: updateError } =
+    useUpdateStudentGrades();
 
   const [grades, setGrades] = useState<StudentGrades["students"]>([]);
 
   useEffect(() => {
-    if (originalGrades?.students) {
-      const completed = originalGrades.students.map((student) => ({
-        ...student,
-        scores: allScoreTypes.map((type) => {
-          const found = student.scores.find((g) => g.type === type);
-          return found || { type, value: 0 };
-        }),
-      }));
-      setGrades(completed);
-    }
-  }, [originalGrades]);
+    if (!courseStudents?.students) return;
 
+    const gradedMap = new Map(
+      originalGrades?.students?.map((s) => [s.studentId, s]) ?? []
+    );
+
+    const merged = courseStudents.students.map((student) => {
+      const found = gradedMap.get(student.studentId);
+
+      const baseScores = allScoreTypes.map((type) => {
+        const existing = found?.scores.find((s) => s.type === type);
+        return existing ?? { type, value: 0 };
+      });
+
+      return {
+        studentId: student.studentId,
+        name: found?.name ?? student.name,
+        status: found?.status ?? "FAILED",
+        scores: baseScores,
+      };
+    });
+
+    setGrades(merged as StudentGrades["students"]); 
+  }, [courseStudents, originalGrades]);
+
+  // Handle input changes
   const handleChange = (studentId: number, type: Grade["type"], value: number) => {
     if (value < 0) value = 0;
-    const limit = gradeLimits[type];
-    if (value > limit) value = limit;
+    const max = gradeLimits[type];
+    if (value > max) value = max;
 
     const updated = grades.map((s) =>
       s.studentId === studentId
@@ -96,7 +112,9 @@ export default function AssignedCourse({ editable = true }: CourseGradesProps) {
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {grades.map((student) => {
-            const original = originalGrades!.students.find(s => s.studentId === student.studentId)!;
+            const original = originalGrades?.students.find(
+              (s) => s.studentId === student.studentId
+            );
 
             return (
               <Card
@@ -113,13 +131,13 @@ export default function AssignedCourse({ editable = true }: CourseGradesProps) {
                     alt={student.name}
                     className="w-16 h-16 rounded-full mb-3 object-cover"
                   />
+
                   <CardTitle className="text-lg text-foreground">
                     {student.name}
                   </CardTitle>
+
                   <Badge
-                    variant={
-                      student.status === "APPROVED" ? "default" : "destructive"
-                    }
+                    variant={student.status === "APPROVED" ? "default" : "destructive"}
                     className={student.status === "APPROVED" ? "bg-green-600" : ""}
                   >
                     {student.status === "APPROVED" ? "Aprobado" : "Reprobado"}
@@ -180,7 +198,7 @@ export default function AssignedCourse({ editable = true }: CourseGradesProps) {
                         updateGrades(
                           student.studentId,
                           courseId,
-                          original.scores,
+                          original?.scores ?? [],
                           student.scores
                         )
                       }
