@@ -4,7 +4,7 @@ import Loader from "@/components/Loader";
 import Modal from "@/components/Modal";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { useFetchStudentProfile } from "@/hooks/student/useFetchStudentProfile";
-import { BookOpen, Calendar, FileText, Pencil, Wallet, Archive } from "lucide-react";
+import { BookOpen, Calendar, FileText, Pencil, Wallet } from "lucide-react";
 import { Link } from "react-router-dom"; // Usar Link en vez de a
 
 export default function Home() {
@@ -17,7 +17,6 @@ export default function Home() {
     { id: "grades", label: "Notas", icon: FileText, to: "/grades" },
     { id: "course-assignment", label: "Asignación", icon: Pencil, to: "/course-assignment" },
     { id: "balance", label: "Estado de Cuenta", icon: Wallet, to: "/account-statement" },
-    { id: "library", label: "Biblioteca", icon: Archive, to: "/library" },
   ];
 
   return (
@@ -91,7 +90,6 @@ export default function Home() {
           </div>
         </section>
 
-        <p className="mt-8 text-center text-xs text-muted-foreground">"Y conoceréis la verdad y la verdad os hará libres"</p>
       </div>
     </Layout>
   );
