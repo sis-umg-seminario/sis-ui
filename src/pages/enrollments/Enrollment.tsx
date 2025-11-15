@@ -28,7 +28,7 @@ export default function Enrollment() {
       paymentTypeId: 1,
       paymentDetails: {
         ...cardDetails,
-        amount: Number(enrollmentFee.enrollmentFee),
+        amount: enrollmentFee.enrollmentFee,
       },
     });
   };
