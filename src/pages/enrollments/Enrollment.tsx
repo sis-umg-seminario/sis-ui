@@ -7,10 +7,10 @@ import { useState } from "react";
 import Modal from "../../components/Modal";
 import Loader from "../../components/Loader";
 import ErrorModal from "../../components/ErrorModal";
-import type { PaymentDetails } from "@/types/payments/payment";
+import { CheckCircle2 } from "lucide-react";
 
 export default function Enrollment() {
-  const { enrollmentFee, loading: loadingFee, error: errorFee, findEnrollmentFee, resetError } = useGetEnrollmentFee();
+  const { enrollmentFee, loading: loadingFee, error: errorFee, findEnrollmentFee, resetEnrollmentFee, resetError } = useGetEnrollmentFee();
   const { paymentResult, loading: loadingPayment, error: errorPayment, pay, resetPaymentError } = useProcessPayment();
 
   const [studentId, setStudentId] = useState<string | null>(null);
@@ -20,32 +20,37 @@ export default function Enrollment() {
     findEnrollmentFee(studentId);
   };
 
-  const handlePayment = (cardDetails: Omit<PaymentDetails, "amount">) => {
+  const handlePayment = (cardDetails: { cardName: string; cardNumber: string; expirationDate: string; cardVerificationValue: string; }) => {
     if (!studentId || !enrollmentFee) return;
 
     pay({
       studentId,
-      paymentTypeId: 1, // ID de Inscripción
+      paymentTypeId: 1,
       paymentDetails: {
         ...cardDetails,
-        amount: enrollmentFee.enrollmentFee,
+        amount: Number(enrollmentFee.enrollmentFee),
       },
     });
   };
 
-  const isLoading = loadingFee || loadingPayment;
+  const handleCancelPayment = () => {
+    resetEnrollmentFee();
+  };
+
   const error = errorFee || errorPayment;
+  const isLoading = loadingFee || loadingPayment;
 
   if (paymentResult) {
     return (
       <Layout>
         <div className="w-full h-full grid place-items-center">
-          <div className="text-center p-8 border-2 border-green-500 rounded-lg shadow-md bg-white">
-            <h2 className="text-2xl font-bold text-green-600">¡Pago Exitoso!</h2>
-            <p>{paymentResult.message}</p>
-            <p>
+          <div className="text-center p-8 border-2 border-green-500 rounded-lg shadow-md bg-card flex flex-col items-center gap-4">
+            <CheckCircle2 className="text-green-500" size={48} />
+            <h2 className="text-2xl font-bold text-green-500">¡Pago Exitoso!</h2>
+            <p className="text-foreground">{paymentResult.message}</p>
+            <p className="text-muted-foreground">
               Código de Autorización:{" "}
-              <span className="font-mono bg-gray-100 p-1 rounded">{paymentResult.authorizationCode}</span>
+              <span className="font-mono bg-secondary text-secondary-foreground p-1 rounded">{paymentResult.authorizationCode}</span>
             </p>
           </div>
         </div>
@@ -55,22 +60,20 @@ export default function Enrollment() {
 
   return (
     <Layout>
-      <div className="w-full h-full grid place-items-center">
-        <div>
-          {enrollmentFee && studentId ? (
-            <FormProcessPayment
-              studentId={studentId}
-              enrollmentFee={enrollmentFee.enrollmentFee}
-              isLoading={isLoading}
-              onSubmit={handlePayment}
-            />
-          ) : (
-            <FormFindEnrollment onSubmit={handleFindFee} isLoading={isLoading} />
-          )}
-        </div>
+      <div className="w-full h-full grid place-items-center p-4">
+        {enrollmentFee && studentId ? (
+          <FormProcessPayment
+            studentId={studentId}
+            enrollmentFee={enrollmentFee.enrollmentFee}
+            isLoading={loadingPayment}
+            onSubmit={handlePayment}
+            onCancel={handleCancelPayment}
+          />
+        ) : (
+          <FormFindEnrollment onSubmit={handleFindFee} isLoading={loadingFee} />
+        )}
       </div>
 
-      {/* Loader global */}
       <Modal open={isLoading} title="Procesando">
         <Loader message="Por favor espera..." />
       </Modal>

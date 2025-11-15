@@ -4,7 +4,8 @@ import Loader from "@/components/Loader";
 import Modal from "@/components/Modal";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { useFetchStudentProfile } from "@/hooks/student/useFetchStudentProfile";
-import { BookOpen, Calendar, FileText, Pencil, Wallet, Archive } from "lucide-react";
+import { BookOpen, Calendar, FileText, Pencil, Wallet } from "lucide-react";
+import { Link } from "react-router-dom"; // Usar Link en vez de a
 
 export default function Home() {
   const { studentUser } = useAuth();
@@ -16,7 +17,6 @@ export default function Home() {
     { id: "grades", label: "Notas", icon: FileText, to: "/grades" },
     { id: "course-assignment", label: "Asignación", icon: Pencil, to: "/course-assignment" },
     { id: "balance", label: "Estado de Cuenta", icon: Wallet, to: "/account-statement" },
-    { id: "library", label: "Biblioteca", icon: Archive, to: "/library" },
   ];
 
   return (
@@ -34,30 +34,22 @@ export default function Home() {
           }}
         />
 
-        <div className="relative bg-white rounded-2xl overflow-hidden shadow-md mb-6">
-          <div className="h-36 bg-gradient-to-r from-blue-400 to-indigo-500 relative">
-            {/* <div className="absolute right-4 top-3 flex gap-3">
-              <button className="bg-white/90 p-2 rounded-full shadow flex items-center justify-center"><Bell size={18} /></button>
-              <button className="bg-white/90 p-2 rounded-full shadow flex items-center justify-center"><Settings size={18} /></button>
-            </div> */}
+        <div className="relative bg-card rounded-2xl overflow-hidden shadow-md mb-6 border">
+          <div className="h-36 bg-primary/80 relative">
             <div className="absolute -bottom-8 left-0 right-0 flex justify-center">
-              <div className="w-36 h-36 bg-white rounded-full filter blur-sm opacity-20"></div>
+              <div className="w-36 h-36 bg-card rounded-full filter blur-sm opacity-20"></div>
             </div>
           </div>
 
           <div className="px-6 pb-6 pt-4">
-            <h2 className="text-center text-sm text-slate-600">{studentProfile?.program.name}</h2>
-            <h1 className="text-center text-xl font-bold mt-2">{studentUser?.profileInformation.firstName} {studentUser?.profileInformation.lastName}</h1>
+            <h2 className="text-center text-sm text-muted-foreground">{studentProfile?.program.name}</h2>
+            <h1 className="text-center text-xl font-bold mt-2 text-foreground">{studentUser?.profileInformation.firstName} {studentUser?.profileInformation.lastName}</h1>
 
             <div className="mt-4 flex items-center justify-center gap-6">
               <div className="text-center">
-                <p className="text-xs text-gray-500">Créditos Aprobados</p>
-                <p className="text-lg font-semibold">{studentProfile?.creditsEarned}</p>
+                <p className="text-xs text-muted-foreground">Créditos Aprobados</p>
+                <p className="text-lg font-semibold text-foreground">{studentProfile?.creditsEarned}</p>
               </div>
-              {/* <div className="text-center">
-                <p className="text-xs text-gray-500">Carné</p>
-                <p className="text-lg font-semibold">user.idBadge</p>
-              </div> */}
             </div>
           </div>
         </div>
@@ -66,39 +58,38 @@ export default function Home() {
           {features.map((f) => {
             const Icon = f.icon;
             return (
-              <a
+              <Link // Usar Link
                 key={f.id}
-                href={f.to}
-                className="group bg-white rounded-2xl p-6 flex flex-col items-center gap-3 text-center shadow hover:shadow-lg transition"
+                to={f.to} // Usar to
+                className="group bg-card rounded-2xl p-6 flex flex-col items-center gap-3 text-center shadow hover:shadow-lg transition border hover:border-primary"
               >
-                <div className="w-16 h-16 rounded-full flex items-center justify-center border-2 group-hover:border-transparent group-hover:scale-105 transform transition">
+                <div className="w-16 h-16 rounded-full flex items-center justify-center border-2 group-hover:scale-105 transform transition text-primary">
                   <Icon size={28} />
                 </div>
-                <span className="text-sm text-gray-700">{f.label}</span>
-              </a>
+                <span className="text-sm text-foreground">{f.label}</span>
+              </Link>
             );
           })}
         </section>
 
         <section className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="bg-white p-4 rounded-lg shadow">
-            <h3 className="font-semibold">Avisos recientes</h3>
-            <ul className="mt-2 text-sm text-gray-600">
+          <div className="bg-card p-4 rounded-lg shadow border">
+            <h3 className="font-semibold text-foreground">Avisos recientes</h3>
+            <ul className="mt-2 text-sm text-muted-foreground">
               <li>- Pago de inscripción 15/11</li>
               <li>- Publicado horario parcial</li>
             </ul>
           </div>
 
-          <div className="bg-white p-4 rounded-lg shadow">
-            <h3 className="font-semibold">Atajos</h3>
+          <div className="bg-card p-4 rounded-lg shadow border">
+            <h3 className="font-semibold text-foreground">Atajos</h3>
             <div className="flex gap-2 mt-2">
-              <button className="px-3 py-1 rounded bg-indigo-50 text-indigo-700 text-sm">Solicitar constancia</button>
-              <button className="px-3 py-1 rounded bg-green-50 text-green-700 text-sm">Ver pagos</button>
+              <button className="px-3 py-1 rounded bg-secondary text-secondary-foreground text-sm">Solicitar constancia</button>
+              <button className="px-3 py-1 rounded bg-secondary text-secondary-foreground text-sm">Ver pagos</button>
             </div>
           </div>
         </section>
 
-        <p className="mt-8 text-center text-xs text-gray-400">"Y conoceréis la verdad y la verdad os hará libres"</p>
       </div>
     </Layout>
   );

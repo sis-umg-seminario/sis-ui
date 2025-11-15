@@ -1,43 +1,55 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { type CourseScheduleResponse } from "@/types/students/courseSchedule";
+// 1. IMPORTAMOS EL COMPONENTE DEL BOTÓN
+import { Button } from "../ui/button";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import { CalendarDays } from "lucide-react";
 
 interface CourseScheduleTableProps {
   scheduleData: CourseScheduleResponse;
+  onGoBack: () => void; // 2. AÑADIMOS LA NUEVA PROP
 }
 
-export default function CourseScheduleTable({ scheduleData }: CourseScheduleTableProps) {
+export default function CourseScheduleTable({ scheduleData, onGoBack }: CourseScheduleTableProps) {
   return (
-    <div className="overflow-hidden border border-gray-200 rounded-xl shadow-sm">
-      <div className="flex items-center justify-center gap-2 py-4 bg-blue-950 text-white">
-        <CalendarDays size={24} />
-        <h2 className="font-bold text-xl text-center">Horario de Cursos Asignados</h2>
-      </div>
-      <div className="p-4 overflow-x-auto bg-white">
-        <Table>
-          <TableHeader>
-            <TableRow className="bg-blue-50">
-              <TableHead className="font-semibold text-gray-800">Curso</TableHead>
-              <TableHead className="font-semibold text-gray-800 text-center">Sección</TableHead>
-              <TableHead className="font-semibold text-gray-800 text-center">Hora Inicio</TableHead>
-              <TableHead className="font-semibold text-gray-800 text-center">Hora Fin</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {scheduleData.courses.map((course) => (
-              <TableRow
-                key={course.courseId}
-                className="hover:bg-blue-50 transition-colors"
-              >
-                <TableCell className="text-gray-700">{course.name}</TableCell>
-                <TableCell className="text-center text-gray-700">{course.section}</TableCell>
-                <TableCell className="text-center text-gray-700">{course.startTime}</TableCell>
-                <TableCell className="text-center text-gray-700">{course.endTime}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
-    </div>
+    <Card className="w-full max-w-3xl">
+        <CardHeader>
+            <CardTitle className="flex items-center gap-2"><CalendarDays /> Horario de Cursos Asignados</CardTitle>
+        </CardHeader>
+        <CardContent>
+            <Table>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead className="font-bold">Curso</TableHead>
+                        <TableHead className="font-bold text-center">Sección</TableHead>
+                        <TableHead className="font-bold text-center">Hora Inicio</TableHead>
+                        <TableHead className="font-bold text-center">Hora Fin</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {scheduleData.courses.map((course) => (
+                        <TableRow key={course.courseId}>
+                            <TableCell>{course.name}</TableCell>
+                            <TableCell className="text-center">{course.section}</TableCell>
+                            <TableCell className="text-center">{course.startTime}</TableCell>
+                            <TableCell className="text-center">{course.endTime}</TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+            
+            {/* Si no hay cursos, mostramos un mensaje */}
+            {scheduleData.courses.length === 0 && (
+                <p className="text-center text-muted-foreground py-8">No tienes cursos asignados para el período consultado.</p>
+            )}
+
+        </CardContent>
+        {/* 3. AÑADIMOS EL FOOTER CON EL BOTÓN */}
+        <CardFooter className="flex justify-end mt-4">
+            <Button variant="outline" onClick={onGoBack}>
+                Regresar
+            </Button>
+        </CardFooter>
+    </Card>
   );
 }

@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
-import { BookOpen, Calendar, FileText, Pencil, ClipboardList, Wallet, LogOut } from "lucide-react";
+import { BookOpen, Calendar, FileText, Pencil, Wallet, LogOut } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import React from "react";
+import * as React from "react";
 import { useAuth } from "@/hooks/auth/useAuth";
 
 type Props = {
@@ -13,7 +13,7 @@ type NavItem = {
   to?: string;
   label: string;
   icon: LucideIcon;
-  action?: () => void; 
+  action?: () => void;
 };
 
 export default function NavMenu({ vertical = false, onNavigate }: Props) {
@@ -23,15 +23,14 @@ export default function NavMenu({ vertical = false, onNavigate }: Props) {
 
   const items: NavItem[] = [];
 
-  if(user?.roles.includes('student')) {
+  if (user?.roles.includes('student')) {
     items.push(
       { to: "/enrollment", label: "Inscripciones", icon: Calendar },
       { to: "/program-courses", label: "Pensum", icon: BookOpen },
       { to: "/grades", label: "Notas", icon: FileText },
       { to: "/course-schedule", label: "Consulta de Horario", icon: Calendar },
       { to: "/course-assignment", label: "Asignación", icon: Pencil },
-      { to: "/account-statement", label: "Estado de Cuenta", icon: Wallet }, 
-      { to: "/library", label: "Biblioteca", icon: ClipboardList },
+      { to: "/account-statement", label: "Estado de Cuenta", icon: Wallet },
     );
   }
   items.push(
@@ -42,8 +41,7 @@ export default function NavMenu({ vertical = false, onNavigate }: Props) {
     <nav className={vertical ? "w-full" : "w-full"}>
       <ul className={`${vertical ? "flex flex-col gap-2" : "flex gap-3"}`}>
         {items.map((it) => {
-          const Icon =
-            it.icon as unknown as React.ComponentType<React.SVGProps<SVGSVGElement>>;
+          const Icon = it.icon as unknown as React.ComponentType<React.SVGProps<SVGSVGElement>>;
 
           if (it.action && !it.to) {
             return (
@@ -53,7 +51,7 @@ export default function NavMenu({ vertical = false, onNavigate }: Props) {
                     it.action?.();
                     onNavigate?.();
                   }}
-                  className={`${base} text-white/90 hover:bg-white/10 flex items-center gap-3 w-full text-left`}
+                  className={`${base} text-primary-foreground/90 hover:bg-primary-foreground/10 flex items-center gap-3 w-full text-left`}
                 >
                   <Icon scale={18} />
                   <span className="text-sm">{it.label}</span>
@@ -70,8 +68,8 @@ export default function NavMenu({ vertical = false, onNavigate }: Props) {
                 className={({ isActive }) =>
                   `${base} ${
                     isActive
-                      ? "bg-white text-blue-950 font-semibold"
-                      : "text-white/90 hover:bg-white/10"
+                      ? "bg-primary-foreground text-primary font-semibold"
+                      : "text-primary-foreground/90 hover:bg-primary-foreground/10"
                   } flex items-center gap-3`
                 }
               >

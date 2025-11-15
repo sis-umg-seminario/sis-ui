@@ -67,7 +67,7 @@ export default function LoginForm({ isLoading, onSubmit }: LoginFormProps) {
           <CardFooter>
             <Button
               type="submit"
-              className="w-full bg-blue-900 hover:bg-blue-700"
+              className="w-full"
               disabled={isLoading}
             >
               {isLoading ? "Ingresando..." : "Ingresar"}

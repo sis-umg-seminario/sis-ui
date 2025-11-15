@@ -51,7 +51,7 @@ export default function FormCourseAssignment({
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col gap-8"
       >
-        <h2 className="text-2xl font-bold text-center text-blue-900 mb-2">
+        <h2 className="text-2xl font-bold text-center text-primary mb-2">
           Asignación de Cursos
         </h2>
 
@@ -65,7 +65,6 @@ export default function FormCourseAssignment({
                 <FormControl>
                   <Input
                     type="number"
-                    className="border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                     required
                     value={field.value}
                     onChange={(e) => field.onChange(Number(e.target.value))}
@@ -85,7 +84,6 @@ export default function FormCourseAssignment({
                 <FormControl>
                   <Input
                     type="number"
-                    className="border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                     required
                     value={field.value}
                     onChange={(e) => field.onChange(Number(e.target.value))}
@@ -140,18 +138,8 @@ export default function FormCourseAssignment({
                     </SelectTrigger>
                     <SelectContent>
                       {[
-                        "Enero",
-                        "Febrero",
-                        "Marzo",
-                        "Abril",
-                        "Mayo",
-                        "Junio",
-                        "Julio",
-                        "Agosto",
-                        "Septiembre",
-                        "Octubre",
-                        "Noviembre",
-                        "Diciembre",
+                        "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+                        "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre",
                       ].map((month, i) => (
                         <SelectItem key={i + 1} value={String(i + 1)}>
                           {month}
@@ -167,10 +155,7 @@ export default function FormCourseAssignment({
         </div>
 
         <div className="flex justify-center">
-          <Button
-            type="submit"
-            className="w-48 bg-blue-900 hover:bg-blue-700 text-white"
-          >
+          <Button type="submit" className="w-48">
             Buscar Cursos
           </Button>
         </div>

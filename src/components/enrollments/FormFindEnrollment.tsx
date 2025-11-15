@@ -28,17 +28,15 @@ export default function FormFindEnrollment({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden"
+        className="bg-card rounded-2xl shadow-lg border overflow-hidden"
       >
-        {/* Header */}
-        <div className="flex items-center justify-center gap-3 bg-blue-900 text-white h-20">
+        <div className="flex items-center justify-center gap-3 bg-primary text-primary-foreground h-20">
           <GraduationCap size={32} />
           <h2 className="font-bold text-2xl text-center">Pago de Inscripción</h2>
         </div>
 
-        {/* Cuerpo del formulario */}
         <div className="flex flex-col justify-evenly p-8 gap-8">
-          <p className="text-gray-700 text-center text-lg">
+          <p className="text-muted-foreground text-center text-lg">
             Ingresa tu número de carné para consultar el monto a pagar
           </p>
 
@@ -47,11 +45,11 @@ export default function FormFindEnrollment({
             name="studentId"
             render={({ field }) => (
               <FormItem className="w-64 mx-auto text-center">
-                <FormLabel className="font-semibold text-gray-700">No. de Carné</FormLabel>
+                <FormLabel className="font-semibold text-foreground">No. de Carné</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Ej: 202300123"
-                    className="text-center text-lg border-gray-300 focus:border-blue-700 focus:ring-blue-700"
+                    className="text-center text-lg"
                     required
                     {...field}
                   />
@@ -63,7 +61,7 @@ export default function FormFindEnrollment({
 
           <Button
             type="submit"
-            className="w-56 bg-blue-900 hover:bg-blue-700 self-center transition-all duration-200"
+            className="w-56 self-center transition-all duration-200"
             disabled={isLoading}
           >
             {isLoading ? "Consultando..." : "Consultar Monto a Pagar"}
