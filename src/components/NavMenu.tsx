@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { BookOpen, Calendar, FileText, Pencil, ClipboardList, Wallet, LogOut } from "lucide-react";
+import { BookOpen, Calendar, FileText, Pencil, Wallet, LogOut } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import * as React from "react";
 import { useAuth } from "@/hooks/auth/useAuth";

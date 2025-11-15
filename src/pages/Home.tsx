@@ -4,7 +4,7 @@ import Loader from "@/components/Loader";
 import Modal from "@/components/Modal";
 import { useAuth } from "@/hooks/auth/useAuth";
 import { useFetchStudentProfile } from "@/hooks/student/useFetchStudentProfile";
-import { BookOpen, Calendar, FileText, Pencil, Wallet, Archive } from "lucide-react";
+import { BookOpen, Calendar, FileText, Pencil, Wallet } from "lucide-react";
 import { Link } from "react-router-dom"; // Usar Link en vez de a
 
 export default function Home() {

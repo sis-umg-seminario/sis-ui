@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { studentService } from "@/services/students/studentService";
 import type { CourseScheduleResponse } from "@/types/students/courseSchedule";
 import type { TermType } from "@/types/academic/courseAssignment";
